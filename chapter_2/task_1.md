@@ -97,15 +97,15 @@ sbatch home/mbtoomey/BIOL7263_Genomics/scripts/fastqc/ecoli_fastqc.sbatch
 
 Oh no! I got an error: 
 
-[endline error](https://github.com/mbtoomey/genomics_adventure/blob/release/images/line_break1.png)
+![endline error](https://github.com/mbtoomey/genomics_adventure/blob/release/images/line_break1.png)
 
 This happened because I created the file in the windows program that uses a different encoding for the ends of the lines of text. In Notepad++ I can correct this with this option: 
 
-[endline error correction](https://github.com/mbtoomey/genomics_adventure/blob/release/images/line_break2.png)
+![endline error correction](https://github.com/mbtoomey/genomics_adventure/blob/release/images/line_break2.png)
 
 Now we if we uploaded the corrected scrpt and resubmit in will be accepted and our job is given an ID# and we can check on its progress with ***squeue -u mbtoomey*** 
 
-[Job status](https://github.com/mbtoomey/genomics_adventure/blob/release/images/fastqc_submission.png)
+![Job status](https://github.com/mbtoomey/genomics_adventure/blob/release/images/fastqc_submission.png)
 
 Notice that the job is pending. This happens when there are many jobs on the cluster. We will have to wait for an indeterminate amount of time. Such is life when you are using a free resource :shrug:
 
