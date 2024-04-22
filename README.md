@@ -32,10 +32,5 @@ bwa mem -t 4 \
 
 The tutorial (sorry adventure), like any good story, is designed to be long and you likely won't finish it in less than 3 hours or even in one sitting. Don't worry though, you can always come back to it anytime!
 
-<p align="center">:dragon_face: Shall we begin? - Daenerys Targaryen :dragon_face:</p>
-
 ## Chapter 1: Once Upon a Time...
-Before our adventure begins we will need to choose our starting point:
-
-1. [Workshop on Genomics](workshop_on_genomics.md)
-2. [Home](home.md)
+Before our adventure begins we will need to setup a few things: [Home](home.md)

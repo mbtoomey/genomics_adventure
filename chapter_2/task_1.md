@@ -2,17 +2,24 @@
 ## Task 1a - Evaluating the Quality of Illumina Data
 From your terminal (command line), navigate to the 'sequencing_data/ecoli' directory (you may be there already) and list the contents of the directory.
 ```bash
-cd ~/workshop_materials/genomics_adventure/sequencing_data/ecoli
+cd /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli
 
 ls -lath
 ```
-![Terminal showing listing of fastq.gz files](https://github.com/guyleonard/genomics_adventure/blob/9624f29665dcf80f3fdcb89c9c8ede55b1c17f45/chapter_2/images/chapter_2_task_1_image_1.png)
+![Terminal showing listing of fastq.gz files](C:/Gdrive/Teaching/Genomics 2024/genomics_adventure/images/ecoli_folder_peek.png)
 
-These are the paired-end read data that were previously downloaded in the introduction section. The filenames are a bit long and boring to continue to type out - so let's make them a little easier by making a symbolic link to them (this is a type of special file that acts as a pointer to the real file).
+These are the sequencing reads from a porject sequencing the genome of Escherichia coli Bal225 with paired-end 2x250bp Illumina MiSeq that I downloaded from the [SRA](https://www.ncbi.nlm.nih.gov/sra/SRX282099[accn]). The filenames are a bit long and boring to continue to type out - so let's make them a little easier by making a symbolic link to them (this is a type of special file that acts as a pointer to the real file).
 ```bash
 ln -s SRR857279_1.fastq.gz read_1.fastq.gz
 ln -s SRR857279_2.fastq.gz read_2.fastq.gz
 ```
+Now is we peek at the files again: 
+
+```bash
+ls -lath
+```
+![with symbolic links](C:/Gdrive/Teaching/Genomics 2024/genomics_adventure/images/ecoli_symbol_link.png)
+The symbolic links appear as files in the folder and we can treat them link files in our further analyses
 
 Now we have nice and easy file names to work with :smile:. You should always record or note down what your original filenames are, so that you can refer to the correct data in the future! Just like keeping notes in a lab book. :open_book:
 
