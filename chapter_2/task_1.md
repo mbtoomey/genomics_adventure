@@ -80,7 +80,7 @@ Next we will need to create an sbatch file that the SLURM job manager will read 
 #
 #SBATCH --partition=normal
 #SBATCH --ntasks=1
-#SBATCH --mem 6G
+#SBATCH --mem 8G
 #SBATCH --output=ecoli_fastqc_%J_stdout.txt
 #SBATCH --error=ecoli_fastqc_%J_stderr.txt
 #SBATCH --job-name=ecoli_fastqc
@@ -89,7 +89,25 @@ Next we will need to create an sbatch file that the SLURM job manager will read 
 bash /home/mbtoomey/BIOL7263_Genomics/scripts/fastqc/ecoli_fastqc.sh
 ```
 
+Once the files are uploaded we simple submit the job with the following command:
 
+```bash
+sbatch home/mbtoomey/BIOL7263_Genomics/scripts/fastqc/ecoli_fastqc.sbatch
+```
+
+Oh no! I got an error: 
+
+[endline error](https://github.com/mbtoomey/genomics_adventure/blob/release/images/line_break1.png)
+
+This happened because I created the file in the windows program that uses a different encoding for the ends of the lines of text. In Notepad++ I can correct this with this option: 
+
+[endline error correction](https://github.com/mbtoomey/genomics_adventure/blob/release/images/line_break2.png)
+
+Now we if we uploaded the corrected scrpt and resubmit in will be accepted and our job is given an ID# and we can check on its progress with ***squeue -u mbtoomey*** 
+
+[Job status](https://github.com/mbtoomey/genomics_adventure/blob/release/images/fastqc_submission.png)
+
+Notice that the job is pending. This happens when there are many jobs on the cluster. We will have to wait for an indeterminate amount of time. Such is life when you are using a free resource :shrug:
 
 Load the **read_1.fastq.gz** file from the ***~/workshop_materials/genomics_adventure/sequencing_data/ecoli*** directory. This should take approximately 6 minutes, so please continue reading below. Many steps in your bioinformatics analysis will take time, you will become a master of multi-tasking, or drinking too much coffee :coffee:.
 
