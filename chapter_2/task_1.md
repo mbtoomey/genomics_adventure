@@ -29,7 +29,7 @@ zcat read_1.fastq.gz | head | grep @SRR
 zcat read_2.fastq.gz | head | grep @SRR
 ```
 
-![head of fastq files](https://github.com/guyleonard/genomics_adventure/blob/9624f29665dcf80f3fdcb89c9c8ede55b1c17f45/chapter_2/images/chapter_2_task_1_image_2.png)
+![head of fastq files](https://github.com/mbtoomey/genomics_adventure/blob/release/images/ecoli_grep.png)
 
 The only difference in the headers for the two reads is the read number. Of course, this is no guarantee that all the headers in the file are consistent. To get some more confidence, lets repeat the above commands using 'tail' instead of 'head' to compare reads at the end of the files. This will take a little longer, as tail has to read all the way through to the end of the file!
 ```bash
@@ -45,16 +45,55 @@ zcat read_2.fastq.gz | grep @SRR | wc –l
 
 Oops! :trollface: Did you just copy and paste that and receive and error saying "wc: –l: No such file or directory" :stuck_out_tongue_winking_eye:. That's okay! Remember, typing the commands so that you get used to using them, and so that you understand what the options do is a much better way of learning! Don't forget you can use 'Tab complete' to automatically complete filenames. Anyway, the answer you should have received is '4273258. Try again, with the correct command, and see what you get! :hugs: Hint: the "–" was wrong in the above command...
 
-Now, let's run the 'fastqc' program on the raw reads. Runing 'fastqc' as below will bring up the Graphical User Interface version.
-```bash
-fastqc &
-```
+## Quality control
 
-Load the **read_1.fastq.gz** file from the ***~/workshop_materials/genomics_adventure/sequencing_data/ecoli*** directory. This should take approximately 6 minutes, so please continue reading below. Many steps in your bioinformatics analysis will take time, you will become a master of multi-tasking, or drinking too much coffee :coffee:.
+Now, let's run the 'fastqc' program to examine the quality of the raw reads. 
 
 The 'fastqc' program performs a number of tests which determines whether a green tick (pass) :heavy_check_mark:, exclamation mark (warning) :exclamation:, or a red cross (fail) :x: is displayed. However, it is important to realise that fastqc has no knowledge of what your specific library is or should look like. All of its tests are based on a completely random library with 50% GC content. Therefore, if you have a sample which does not match these assumptions, it may 'fail' the library.
 
 For example, if you have a high AT or high GC organism it may fail the 'per sequence GC content' test. If you have any barcodes or low complexity libraries (e.g. small RNA libraries, RAD-Seq, Amplicons) they may also fail some of the sequence complexity tests. The bottom line is that you need to be aware of what your library is and whether what 'fastqc' is reporting makes sense for that type of library. Know your data from study design to sequencing and beyond!
+
+Since fastqc will require more computational resource, so will will submit this action as a job through using SLURM. First we will write a shell script (.sh file) will our commands and then an sbatch file to submit that script. 
+
+First lets setup a folder in our home directory for the scripts we will make
+
+```bash
+mkdir -p /home/mbtoomey/BIOL7263_Genomics/scripts/fastqc
+```
+
+Now create a .sh file with the following commands and save it to ***/home/mbtoomey/BIOL7263_Genomics/scripts/fastqc***. This simplest way to do this is to create the file offline in an editor like [Notepad++](https://notepad-plus-plus.org/) and then upload to OSCER with [scp or winSCP](https://www.ou.edu/oscer/support/file_transfer). I created a file called ***ecoli_fastqc.sh*** that contains the following:
+
+```bash
+ml fastqc
+ml java
+
+mkdir -p /scratch/mbtoomey/BIOL7263_Genomics/fastqc_output
+
+fastqc /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/read_1.fastq.gz -o /scratch/mbtoomey/BIOL7263_Genomics/fastqc_output/
+fastqc /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/read_2.fastq.gz -o /scratch/mbtoomey/BIOL7263_Genomics/fastqc_output/
+```
+
+Next we will need to create an sbatch file that the SLURM job manager will read to queue and start our job. I created a file called ***ecoli_fastqc.sbatch*** that contained the following:
+
+```bash
+#!/bin/bash
+#
+#SBATCH --partition=normal
+#SBATCH --ntasks=1
+#SBATCH --mem 6G
+#SBATCH --output=ecoli_fastqc_%J_stdout.txt
+#SBATCH --error=ecoli_fastqc_%J_stderr.txt
+#SBATCH --job-name=ecoli_fastqc
+# 
+
+bash /home/mbtoomey/BIOL7263_Genomics/scripts/fastqc/ecoli_fastqc.sh
+```
+
+
+
+Load the **read_1.fastq.gz** file from the ***~/workshop_materials/genomics_adventure/sequencing_data/ecoli*** directory. This should take approximately 6 minutes, so please continue reading below. Many steps in your bioinformatics analysis will take time, you will become a master of multi-tasking, or drinking too much coffee :coffee:.
+
+
 
 ![FastQC: Basic Stats](https://github.com/guyleonard/genomics_adventure/blob/9624f29665dcf80f3fdcb89c9c8ede55b1c17f45/chapter_2/images/chapter_2_task_1_image_3.png)
 
