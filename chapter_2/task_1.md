@@ -164,6 +164,6 @@ Do the same for 'read 2' as you did for 'read 1', (you can open a new file in th
 
 Note that the number of reads reported in both files are identical. Overall, both 'read 1' and 'read 2' can be regarded as 'good enough' data-sets. 
 
-For reference, [here](https://www.dropbox.com/scl/fi/y4va8h7rslkz645ukn9so/36_F_S113_R1_001_fastqc.html?rlkey=3d9ywalu75un0b3mxb4n86ksa&st=eb1z7j6o&dl=0) and [here](https://www.dropbox.com/scl/fi/lg7bohh8ys10keu2yibt5/41_G_S80_R1_001_fastqc.html?rlkey=9qdrmv1g1rw1lrog8mtu04i44&st=6spg2o78&dl=0) are a few "bad" dataset with extreme levels of duplication, adaptor content, and quality drop offs mid-sequence. 
+For reference, [here](https://mbtoomey.github.io/genome_biology_FA24/fastqc_examples/36_F_S113_R1_001_fastqc.html) and [here](https://mbtoomey.github.io/genome_biology_FA24/fastqc_examples/41_G_S80_R1_001_fastqc.html) are a few "bad" dataset with extreme levels of duplication, adaptor content, and quality drop offs mid-sequence. 
 
 ## Now Go to [Task 2](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_2/task_2.md)
