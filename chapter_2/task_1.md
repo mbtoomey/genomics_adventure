@@ -45,7 +45,7 @@ zcat read_2.fastq.gz | grep @SRR | wc –l
 
 Oops! :trollface: Did you just copy and paste that and receive and error saying "wc: –l: No such file or directory" :stuck_out_tongue_winking_eye:. That's okay! Remember, typing the commands so that you get used to using them, and so that you understand what the options do is a much better way of learning! Don't forget you can use 'Tab complete' to automatically complete filenames. Anyway, the answer you should have received is '4273258. Try again, with the correct command, and see what you get! :hugs: Hint: the "–" was wrong in the above command...
 
-## Quality control
+# Quality control
 
 Now, let's run the 'fastqc' program to examine the quality of the raw reads. 
 
@@ -64,9 +64,6 @@ mkdir -p /home/mbtoomey/BIOL7263_Genomics/scripts/fastqc
 Now create a .sh file with the following commands and save it to ***/home/mbtoomey/BIOL7263_Genomics/scripts/fastqc***. This simplest way to do this is to create the file offline in an editor like [Notepad++](https://notepad-plus-plus.org/) and then upload to OSCER with [scp or winSCP](https://www.ou.edu/oscer/support/file_transfer). I created a file called ***ecoli_fastqc.sh*** that contains the following:
 
 ```bash
-ml fastqc
-ml java
-
 mkdir -p /scratch/mbtoomey/BIOL7263_Genomics/fastqc_output
 
 fastqc /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/read_1.fastq.gz -o /scratch/mbtoomey/BIOL7263_Genomics/fastqc_output/
@@ -109,39 +106,53 @@ Now we if we uploaded the corrected scrpt and resubmit in will be accepted and o
 
 Notice that the job is pending. This happens when there are many jobs on the cluster. We will have to wait for an indeterminate amount of time. Such is life when you are using a free resource :shrug:
 
-Load the **read_1.fastq.gz** file from the ***~/workshop_materials/genomics_adventure/sequencing_data/ecoli*** directory. This should take approximately 6 minutes, so please continue reading below. Many steps in your bioinformatics analysis will take time, you will become a master of multi-tasking, or drinking too much coffee :coffee:.
+...sometime later....
 
+WHen the job runs it will produce stderror and stdoutput txt files in the folder where the job was submitted from. These provide detail of run progress and any error messages that usually apprear on screen when you are running in interactive mode. 
 
+![error and out files](https://github.com/mbtoomey/genomics_adventure/blob/release/images/error_out.png)
 
-![FastQC: Basic Stats](https://github.com/guyleonard/genomics_adventure/blob/9624f29665dcf80f3fdcb89c9c8ede55b1c17f45/chapter_2/images/chapter_2_task_1_image_3.png)
+We can uses ***cat*** to look at the out file: 
+
+![out file](https://github.com/mbtoomey/genomics_adventure/blob/release/images/std_out.png)
+
+Looks like everything ran just fine. Let's take a look at the fastqc output. This output is an html file so we will need to download the fastqc_output folder and examine locally. I used WInSCP to do this: 
+
+![fastqc out](https://github.com/mbtoomey/genomics_adventure/blob/release/images/fastqc_out.png)
+
+##FastQC output
+
+![FastQC: Basic Stats](https://github.com/mbtoomey/genomics_adventure/blob/release/images/fcqc1.png)
 
 In this case we have a number of errors and warnings which at first sight suggest that there has been a problem - but don't worry too much yet. Let's go through a few of them.
 
 ### Per base sequence quality
 This is one of the most important metrics. If the quality scores are poor, either the wrong FASTQ encoding has been guessed by fastqc (see the Basic Statistics tab), or the data itself is poor quality. This view shows an overview of the range of quality values across all bases at each position in the FASTQ file.  Generally anything with a median quality score greater than Q20 is regarded as acceptable; anything above Q30 is regarded as 'good'. For more details, see the help documentation in fastqc.
 
-![FastQC: Per base sequence quality](https://github.com/guyleonard/genomics_adventure/blob/9624f29665dcf80f3fdcb89c9c8ede55b1c17f45/chapter_2/images/chapter_2_task_1_image_4.png)
+![FastQC: Per base sequence quality](https://github.com/mbtoomey/genomics_adventure/blob/release/images/fcqc2.png)
 
 In this case this check is red - and it is true that the quality drops off at the end of the reads. It is normal for read quality to get worse towards the end of the read. You can see that at ~100 bases the quality is still relatively good.
 
 ### Per base sequence Content
 For a completely randomly generated library with a GC content of 50% one expects that at any given position within a read there will be a 25% chance of finding an A,C,T or G base. Here we can see that our library satisfies these criteria, although there appears to be some minor bias at the beginning of the read. This may be due to PCR duplicates during amplification or during library preparation. It is unlikely that one will ever see a perfectly uniform distribution.
 
-![FastQC: Per base sequence Content](https://github.com/guyleonard/genomics_adventure/blob/9624f29665dcf80f3fdcb89c9c8ede55b1c17f45/chapter_2/images/chapter_2_task_1_image_5.png)
+![FastQC: Per base sequence Content](https://github.com/mbtoomey/genomics_adventure/blob/release/images/fcqc3.png)
 
 ### Sequence Duplication Levels
 In a library that covers a whole genome uniformly most sequences will occur only once in the final set. A low level of duplication may indicate a very high level of coverage of the target sequence, but a high level of duplication is more likely to indicate some kind of enrichment bias (e.g. PCR over-amplification).
 This module counts the degree of duplication for every sequence in the set and creates a plot showing the relative number of sequences with different degrees of duplication. 
 
-![FastQC: Sequence Duplication](https://github.com/guyleonard/genomics_adventure/blob/9624f29665dcf80f3fdcb89c9c8ede55b1c17f45/chapter_2/images/chapter_2_task_1_image_6.png)
+![FastQC: Sequence Duplication](https://github.com/mbtoomey/genomics_adventure/blob/release/images/fcqc4.png)
 
 ### Overrepresented Sequences
 This checks for sequences that occur more frequently than expected in your data. It also checks any sequences it finds against a small database of known sequences. A typical cause is that the original DNA was shorter than the length of the read - so the sequencing overruns the actual DNA and runs into the adaptors used to bind it to the flow cell.
 
-![FastQC: Overrepresented Sequences](https://github.com/guyleonard/genomics_adventure/blob/9624f29665dcf80f3fdcb89c9c8ede55b1c17f45/chapter_2/images/chapter_2_task_1_image_7.png)
+![FastQC: Overrepresented Sequences](https://github.com/mbtoomey/genomics_adventure/blob/release/images/fcqc5.png)
 
 ### Adaptor Content
 In this case it has found that a small number of reads (35000) that appear to contain a sequence used in the preparation for the library. Don't worry, as we can trim these in a later stage and is completely normal to find them in your data.
+
+![FastQC: Adapter content](https://github.com/mbtoomey/genomics_adventure/blob/release/images/fcqc5.png)
 
 ### Other Reports
 Have a look at them and at what the author of FastQC has to say [here](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/):mag:. Or check out their youtube tutorial video [here](https://www.youtube.com/watch?v=bz93ReOv87Y):mag:.
@@ -151,6 +162,8 @@ Remember the error and warning flags are the author's (albeit experienced) judge
 ## Task 1b - Evaluating the Quality of Illumina Data Continued...
 Do the same for 'read 2' as you did for 'read 1', (you can open a new file in the same window) and have a look at the various plots and metrics which are generated. How similar are they? Why might they differ?
 
-Note that the number of reads reported in both files are identical. Overall, both 'read 1' and 'read 2' can be regarded as 'good' data-sets.
+Note that the number of reads reported in both files are identical. Overall, both 'read 1' and 'read 2' can be regarded as 'good enough' data-sets. 
 
-## Now Go to [Task 2](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_2/task_2.md)
+For reference, [here](https://github.com/mbtoomey/genomics_adventure/blob/release/fastqc_examples/36_F_S113_R1_001_fastqc.html) and [here](https://github.com/mbtoomey/genomics_adventure/blob/release/fastqc_examples/41_G_S80_R1_001_fastqc.html) are a few "bad" dataset with extreme levels of duplication, adaptor content, and quality drop offs mid-seqeunce. 
+
+## Now Go to [Task 2](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_2/task_2.md)
