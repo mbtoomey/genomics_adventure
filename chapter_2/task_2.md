@@ -25,7 +25,7 @@ trim_galore --help
 ```
 You will see something similar to this:
 
-![Trim_Galore Help](https://github.com/mbtoomey/genomics_adventure/blob/release/images/trim_galore1.png)
+![Trim_Galore Help](https://github.com/mbtoomey/genomics_adventure/blob/release/images/Trim_galore1.png)
 
 There is always a lot of information to take in when you look at the help pages of different programs, but don't worry these walls of text will become your new best friends soon enough! :handshake:
 
