@@ -85,6 +85,9 @@ Next we will need to create an sbatch file that the SLURM job manager will read 
 
 bash /home/mbtoomey/BIOL7263_Genomics/scripts/fastqc/ecoli_fastqc.sh
 ```
+Here are the files I created: 
+[ecoli_fastqc.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_fastqc.sh)
+[ecoli_fastqc.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_fastqc.sbatch)
 
 Once the files are uploaded we simple submit the job with the following command:
 
@@ -164,6 +167,6 @@ Do the same for 'read 2' as you did for 'read 1', (you can open a new file in th
 
 Note that the number of reads reported in both files are identical. Overall, both 'read 1' and 'read 2' can be regarded as 'good enough' data-sets. 
 
-For reference, [here](https://mbtoomey.github.io/genome_biology_FA24/fastqc_examples/36_F_S113_R1_001_fastqc.html) and [here](https://mbtoomey.github.io/genome_biology_FA24/fastqc_examples/41_G_S80_R1_001_fastqc.html) are a few "bad" dataset with extreme levels of duplication, adaptor content, and quality drop offs mid-sequence. 
+For reference, [here](https://mbtoomey.github.io/genome_biology_FA24/fastqc_examples/36_F_S113_R1_001_fastqc.html) and [here](https://mbtoomey.github.io/genome_biology_FA24/fastqc_examples/41_G_S80_R1_001_fastqc.html) are a few "bad" dataset with extreme levels of duplication, adaptor content, and quality drop offs mid-sequence. These results suggest that something went wrong in library preparation :sob: 
 
 ## Now Go to [Task 2](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_2/task_2.md)
