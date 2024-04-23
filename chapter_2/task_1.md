@@ -85,9 +85,9 @@ Next we will need to create an sbatch file that the SLURM job manager will read 
 
 bash /home/mbtoomey/BIOL7263_Genomics/scripts/fastqc/ecoli_fastqc.sh
 ```
-Here are the files I created: 
-[ecoli_fastqc.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_fastqc.sh)
-[ecoli_fastqc.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_fastqc.sbatch)
+Here are the files I created:
+* [ecoli_fastqc.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_fastqc.sh)
+* [ecoli_fastqc.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_fastqc.sbatch)
 
 Once the files are uploaded we simple submit the job with the following command:
 
