@@ -14,21 +14,9 @@ A list (by no means exhaustive) of some of the other most common adaptor trimmin
  * [adapterremoval](https://github.com/MikkelSchubert/adapterremoval)
  * [fastq-mcf](https://expressionanalysis.github.io/ea-utils/)
 
-Commands for installing these programs are shown below, however you do not need to complete them for this workshop. If you have extra time you may wish to journey back here at a later date to try them out.
-
 PS - There are also programs for removing or demultiplexing special barcode data from your reads, but they are not covered in this tutorial.
 
 PPS - Long reads require a whole suite of different programs - especially Oxford Nanopore - due to the different technologies and errors involved in base calling.
-
-:warning: - Don't run these commmands now. You can try them if you like after you have completed this chapter ⚠️
- 
-```bash
-conda install -c bioconda fastp
-conda install -c bioconda trimmomatic
-conda install -c bioconda flexbar
-conda install -c bioconda adapterremoval
-conda install -c bioconda ea-utils
-```
 
 ## Running Trim Galore!
 'Trim Galore!' can be run by typing the program name 'trim_galore' into the terminal. However, it won't display anything useful to start with, so you will have to give it some instructions, e.g. '--help', this will show what options are available for you to start.
@@ -37,7 +25,7 @@ trim_galore --help
 ```
 You will see something similar to this:
 
-![Trim_Galore Help](https://github.com/guyleonard/genomics_adventure/blob/3c710a4a5aa1812a1e2778ffa87e059db277c866/chapter_2/images/chapter_2_task_2_image_1.png)
+![Trim_Galore Help](https://github.com/mbtoomey/genomics_adventure/blob/release/images/trim_galore1.png)
 
 There is always a lot of information to take in when you look at the help pages of different programs, but don't worry these walls of text will become your new best friends soon enough! :handshake:
 
@@ -52,17 +40,15 @@ Here a few things to start:
  
 This is the minimal set of information we need to start with (in this case FastQC told us most of the information, but you would also know much more than this when you submit your samples to your sequencing facility). So, we could start with something like this (do not type this yet):
 ```bash
-trim_galore --illumina --paired --phred33 read_1.fastq.gz read_2.fastq.gz
+trim_galore --illumina --paired --phred33 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/read_1.fastq.gz /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/read_2.fastq.gz 
 ```
 
 However, it is very useful to add some options to control our output too. For example, we should also run 'FastQC' on the trimmed reads, and we want the output files to be in a 'zipped' format, and we should also take advantage of the multi-threading capabilities of our computer (to speed up the processing). 
 
 So we can actually type:
 ```bash
-trim_galore --paired --fastqc --gzip --cores 4 --length 100 read_1.fastq.gz read_2.fastq.gz
+trim_galore --paired --fastqc --gzip --cores 4 --length 100 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/read_1.fastq.gz /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/read_2.fastq.gz --basename trimmed_reads -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/
 ```
-
-Running the above command should take roughly 5 minutes. Read on below whilst you are waiting, or try and take in some of the output messages, what is the program telling you? :hourglass_flowing_sand:
 
 Notice that I have removed the '--illumina' and '--phred33' options, this is because 'Trim Galore!' is pretty smart and will try to guess the encoding and adaptor types for you :crossed_fingers: (but if you are 100% sure, then you can leave them in). It will now also output the results in a 'gzip' format rather than plain text, and run 'FastQC' on those files automaically.
 
@@ -70,28 +56,44 @@ Most programs also have a bunch of default parameters which have been set for yo
 
 Did you notice the "--length 100" option was also enabled? The default is set at 20bp and that is very small - especially when we start with 150bp reads, if any reads were trimmed to this 20bp it is debatable how useful they would be in an assembly or mapping situation. Let's try and keep all our reads > 100bp in this case. It is likely that in the 'real world' :tm: you will end up trying several rounds of trimming until you are happy with the results. Remember, science is a process of trials and errors. :sweat:
 
+I also decided to change the name of the output files to "trmmed_reads" using the --basename option and I specified the -o option to set the output folder with to my scratch folder. If I do not specify an output folder the trimmed reads would be written to whichever folder I submit my job from. 
+
+Now setup the .sh and .sbatch files as we did in task 1 locally and then upload to OSCER. Let's make a new directory for these scripts in our home folder:
+
+```bash
+mkdir -p /home/mbtoomey/BIOL7263_Genomics/scripts/trim_galore
+```
+
+Then use SCP or WinSCP to load the files. 
+
+Here are the files I created:
+* [ecoli_trim.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_trim.sh)
+* [ecoli_trim.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_trim.sbatch)
+
+Running the above command should take roughly 5 minutes. 
+
 ### Output Files
 Now let's see what the program has produced! Returning to your terminal, you can list the contents of the directory, and you should see something similar to this:
 
-![ls of directory](https://github.com/guyleonard/genomics_adventure/blob/3c710a4a5aa1812a1e2778ffa87e059db277c866/chapter_2/images/chapter_2_task_2_image_2.png)
+![ls of directory](https://github.com/mbtoomey/genomics_adventure/blob/release/images/trim_out.png)
 
 There are several sets of output files:
- 1. two processed zipped 'fastq' files (read_1_val_1.fq.gz and read_2_val_2.fq.gz), containing the trimmed reads,
- 2. two '.html' files which contain a visual report - much like the GUI of FastQC,
+ 1. two processed zipped 'fastq' files (trimmed_reads_val_1.fq.gz and trimmed_reads_val_2.fq.gz), containing the trimmed reads,
+ 2. two '.html' files which contain the FastQC report like we looked at before
  3. two '.txt' files which contain similar information as above, just without the graphs,
  4. and two '.zip' files which contain the same reports as the '.html' files.
 
-You will notice that the 'read_2_val_2.fq.gz' file is a little bit smaller than 'read_1_val_1.fq.gz'. Why do you think this might be?
+You will notice that the 'trimmed_reads_val_2.fq.gz' file is a little bit smaller than 'trimmed_reads_val_1.fq.gz'. Why do you think this might be?
 
 Now you should count the lines in all the files:
 ```bash
-zcat read_1_val_1.fq.gz | wc -l
+zcat trimmed_reads_val_1.fq.gz | wc -l
 
-zcat read_2_val_2.fq.gz | wc -l
+zcat trimmed_reads_val_2.fq.gz | wc -l
 ```
 
-Although the reads have been trimmed differently - the number of reads in the 'read_1' and 'read_2' files are identical (11,804,120). This is required for all the tools we will use to analyse paired-end data.
+Although the reads have been trimmed differently - the number of reads in the 'trimmed_reads_val_1' and 'trimmed_reads_val_2' files are identical (11,804,120). This is required for all the tools we will use to analyse paired-end data.
 
-Now you should check the quality scores and sequence distribution from the 'FastQC' outputs. Open the 'html' file in Firefox or your favourite browser. You should notice very little change (since comparatively few reads were filtered). However, you should notice a significant improvement in quality and the absence of adaptor sequences.
+Now you should check the quality scores and sequence distribution from the 'FastQC' outputs. Open the 'html' file in Firefox or your favorite browser. You should notice very little change (since comparatively few reads were filtered). However, you should notice a significant improvement in quality and the absence of adaptor sequences.
 
-## Go to [Task 3](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_2/task_3.md)
+## Go to [Task 3](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_2/task_3.md)

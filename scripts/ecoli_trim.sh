@@ -1,0 +1,1 @@
+trim_galore --paired --fastqc --gzip --cores 4 --length 100 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/read_1.fastq.gz /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/read_2.fastq.gz --basename trimmed_reads -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/
