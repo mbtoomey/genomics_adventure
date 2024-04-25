@@ -24,4 +24,4 @@ Note that the entire region in the image above seems to contain lots of PCR dupl
 
 It's always important to think critically about any findings - don't assume that whatever bioinformatic tools you are using are perfect. Or that you have used them perfectly.
 
-# Go to [Task 5](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_2/task_5.md)
+# Go to [Task 5](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_2/task_5.md)
