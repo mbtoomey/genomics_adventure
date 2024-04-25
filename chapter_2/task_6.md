@@ -53,7 +53,6 @@ Congratulations, you have just performed your first mapping of reads to a refere
 ## SAM File Manipulation - Basic
 Once the alignment is complete, list the directory contents and check that the alignment file 'ecoli_mapped.sam' is present. The raw alignment is stored in what is called 'SAM' format (Simple AlignMent format). It is a plain text file, and so you can view it using the 'less', 'head', or 'tail' commands, for example. It is best to not open the whole file in a text editor, as you will likely run out of memory, they can get very big! In our case it is about 2.2GB.
 
-Each alignment line has 11 mandatory fields for essential alignment information including mapping position, and a variable number of optional fields for flexible or aligner specific information. For further details as to what each field means see the PDF [here](http://samtools.sourceforge.net/SAM1.pdf) :mag:. If you are on the Workshop on Genomics course then Mike Zody will have explained these files to you in gory detail! We will also explore this more in the next task.
-
+Each alignment line has 11 mandatory fields for essential alignment information including mapping position, and a variable number of optional fields for flexible or aligner specific information. For further details as to what each field means see the PDF [here](http://samtools.sourceforge.net/SAM1.pdf) :mag:. 
 
 # Go to [Task 7](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_2/task_7.md)
