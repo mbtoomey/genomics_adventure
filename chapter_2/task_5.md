@@ -3,12 +3,12 @@ Before we can start aligning reads to a reference genome, the genome sequence ne
 
 Now let's change to our *E. coli* reference sequence directory, do you remember where it is? Can you get there in one command? Also let's remind ourselves what is actually in the directory.
 ```bash
-cd ~/workshop_materials/genomics_adventure/reference_sequences/ecoli
+cd /scratch/mbtoomey/BIOL7263_Genomics/reference_sequences/ecoli
 
 ls -lath
 ```
 
-![directory listing](https://github.com/guyleonard/genomics_adventure/blob/ab1ec0fa20549e930c898b7f96feabc605d601f8/chapter_2/images/chapter_2_task_5_image_1.png)
+![directory listing](https://github.com/mbtoomey/genomics_adventure/blob/release/images/red_folder.png)
 
 In this directory we have 2 files:
  1. GCF_000005845.2_ASM584v2_genomic.fna - which is a FASTA file that contains the reference genome sequence.
@@ -29,9 +29,26 @@ BWA is actually a suite of programs which perform many different functions. We a
 By default 'bwa index' will use the '*IS*' algorithm to produce the index. This works well for most genomes, but for very large ones (e.g. vertebrates) you may need to use '*bwtsw*' algorithm. For bacterial genomes the default algorithm will work fine.
 
 ### Create a Reference Index
-```bash
-bwa index GCF_000005845.2_ASM584v2_genomic.fna
-```
-Take a look at the output of this command in your terminal (e.g. 'ls -lath'). You will notice that the 'bwa index' program has created a set of new files. We don't need to know what these are right now, just that these are the index files that 'bwa mem' will need.
 
-# Go to [Task 6](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_2/task_6.md)
+We will submit this as a job so let's first make a folder for our scripts in our home folder: 
+
+```bash
+mkdir /home/mbtoomey/BIOL7263_Genomics/scripts/BWA/
+```
+
+Then make a .sh file with the following: 
+
+```bash
+bwa index /scratch/mbtoomey/BIOL7263_Genomics/reference_sequences/ecoli/GCF_000005845.2_ASM584v2_genomic.fna -p /scratch/mbtoomey/BIOL7263_Genomics/reference_sequences/ecoli/
+```
+
+Here the -p option sets the output folder, so our index will be written to the same location as our refrence sequence. Now upload the .sh and the .sbatch files the scripts/BWA folder and submit the job. 
+
+Here are my scripts: 
+* [ecoli_trim.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_trim.sh)
+* [ecoli_trim.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_trim.sbatch)
+
+
+Take a look at the output of this command in your terminal (e.g. 'ls -lath'). You will notice that the 'bwa index' program has created a set of new files (e.g .sa, .amb, etc). We don't need to know what these are right now, just that these are the index files that 'bwa mem' will need.
+
+# Go to [Task 6](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_2/task_6.md)
