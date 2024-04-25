@@ -41,8 +41,8 @@ bwa mem -t 4 \
 Now create the .sh files with the above commands updated for your file system and a .sbatch file with the 'n-task = 4' option, upload to the scripts/BWA folder and submit the job.
 
 Here are the files I created: 
-* [ecoli_bwa_mem.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/BWA/ecoli_bwa_mem.sh)
-* [ecoli_bwa_mem.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/BWA/ecoli_bwa_mem.sbatch)
+* [ecoli_bwa_mem.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_bwa_mem.sh)
+* [ecoli_bwa_mem.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_bwa_mem.sbatch)
 
 This process will take a couple of minutes to complete. You can monitor the progress by reviewing the stdout.txt files, These will look something like this: 
 
