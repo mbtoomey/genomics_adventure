@@ -59,7 +59,7 @@ pigz *.fq
 
 Now your sequence directory should look something like this: 
 
-![subsamples](https://github.com/mbtoomey/genomics_adventure/blob/release/images/subsamples.png)
+![subsamples](https://github.com/mbtoomey/genomics_adventure/blob/release/images/sub_sample.png)
 
 One thing to be careful of when randomly subsampling data like this is that we may, by accident, subsample regions in our genome that are more, or less, sequenced than others - especially if our coverage is not even across the sequencing libraries. This can lead to issues with downstream analysis, especially if for example, the libraries come from Multiple Displacement Amplification (e.g. Single Cells). So we should always be careful with this approach. One method to minimise this potential source of bias in our data is called Digital Normalisation.
 
