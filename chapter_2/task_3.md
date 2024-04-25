@@ -17,11 +17,11 @@ seqtk sample
 
 Now let's try randomly subsampling our *E. coli* 'read_1' dataset to 10% of the data. We need to express 10% as a fraction for 'seqtk', so 0.1, and supply that as an option to the 'seqtk sample' program. Let's do it twice, to see if we truly do get a random subsampling of the data...
 ```bash
-seqtk sample read_1_val_1.fq.gz 0.1 > read_1_val_1_subsample_one.fq
+seqtk sample trimmed_reads_val_1.fq.gz 0.1 > trimmed_reads_val_1_subsample_one.fq
 
-seqtk sample read_1_val_1.fq.gz 0.1 > read_1_val_1_subsample_two.fq
+seqtk sample trimmed_reads_val_1.fq.gz 0.1 > trimmed_reads_val_1_subsample_two.fq
 
-head read_1_val_1_subsample*
+head trimmed_reads_val_1_subsample*
 ```
 
 What do the headers look like, do they look like a random selection to you? Ha ha! :stuck_out_tongue_closed_eyes: I played another trick on you! Don't worry though, this is a common pitfall when you start out learning to use bioinformatic software.
@@ -32,13 +32,13 @@ This may seem somewhat counter-intertuitive at first - how can something be rand
 
 Using the '-s' option we can set the 'seed' starting position of the random subsampling. So, if we change the value to '1234' and '5678' we should have two different random samples. For this next bit you can choose any numbers you like! :metal:
 ```bash
-seqtk sample -s 1234 read_1_val_1.fq.gz 0.1 > read_1_val_1_subsample_three.fq
+seqtk sample -s 1234 trimmed_reads_val_1.fq.gz 0.1 > trimmed_reads_val_1_subsample_three.fq
 
-seqtk sample -s 5678 read_1_val_1.fq.gz 0.1 > read_1_val_1_subsample_four.fq
+seqtk sample -s 5678 trimmed_reads_val_1.fq.gz 0.1 > trimmed_reads_val_1_subsample_four.fq
 
-head read_1_val_1_subsample_three.fq
+head trimmed_reads_val_1_subsample_three.fq
 
-head read_1_val_1_subsample_four.fq
+head trimmed_reads_val_1_subsample_four.fq
 ```
 
 How do they look now? Much more random right!? :thumbsup: Of course, if you are doing this in groups (or on multiple machines) the random samples should be the same give the same seed.
@@ -47,9 +47,9 @@ Let's tidy up our testing files now, and then repeat the process one last time -
 ```bash
 rm *.fq
 
-seqtk sample -s 628 read_1_val_1.fq.gz 0.5 > read_1_val_1_subsampled.fq
+seqtk sample -s 628 trimmed_reads_val_1.fq.gz 0.5 > trimmed_reads_val_1_subsampled.fq
 
-seqtk sample -s 628 read_2_val_2.fq.gz 0.5 > read_2_val_2_subsampled.fq
+seqtk sample -s 628 trimmed_reads_val_2.fq.gz 0.5 > trimmed_reads_val_2_subsampled.fq
 ```
 
 There is just one final thing we need to do, although 'seqtk' can read 'gzipped' files, it does not produce them. So we should 'gzip' them now. You can either use the program 'gzip' or it's speedier cousin 'pigz'.
@@ -57,25 +57,56 @@ There is just one final thing we need to do, although 'seqtk' can read 'gzipped'
 pigz *.fq
 ```
 
+Now your sequence directory should look something like this: 
+
+![subsamples](https://github.com/mbtoomey/genomics_adventure/blob/release/images/subsamples.png)
+
 One thing to be careful of when randomly subsampling data like this is that we may, by accident, subsample regions in our genome that are more, or less, sequenced than others - especially if our coverage is not even across the sequencing libraries. This can lead to issues with downstream analysis, especially if for example, the libraries come from Multiple Displacement Amplification (e.g. Single Cells). So we should always be careful with this approach. One method to minimise this potential source of bias in our data is called Digital Normalisation.
 
 ### 2. Digital Normalisation
 
 In all seriousness, I forgot to write this section. Mea culpa. So as it's 2024 and we are all using ChatGPT anyway, I gave it the prompt "write me a few short paragraphs about digital normalisation of fastq illumina reads".
 
-Let's have a poquito look at what it came up with.
+Let's have a look at what it came up with.
 
->Digital normalization is an intriguing concept in the realm of bioinformatics, particularly when dealing with high-throughput sequencing data, such as that produced by Illumina platforms. The primary goal of digital normalization is to reduce the redundancy in sequencing data, thereby improving both computational efficiency and downstream analysis quality.
+>Certainly! Let's delve into the concept of **digital normalization** for **FASTQ Illumina reads**.
 
->In the context of fastq files from Illumina reads, digital normalization operates by selectively down-sampling the dataset. It's akin to strategically thinning out a dense forest so that each tree (read) can be examined more effectively. The process involves analyzing the k-mer frequency distribution within the reads. K-mers are subsequences of length 'k' derived from the longer DNA sequences. By assessing the abundance of these k-mers across the dataset, digital normalization identifies and discards reads that are over-represented, presumably because they originate from highly abundant sequences.
+>### Digital Normalization of FASTQ Illumina Reads
 
->This technique is particularly beneficial when dealing with large datasets, a common scenario given the high output of Illumina platforms. By reducing the number of reads, digital normalization lessens the computational resources needed for tasks like assembly and alignment, without significantly compromising the quality or coverage of the data. It's a bit like efficiently packing a suitcase for a trip; you want to include everything necessary but avoid unnecessary bulk.
+>**Digital normalization** is a computational technique used to reduce redundancy and improve the efficiency of downstream analysis for high-throughput sequencing data, particularly **FASTQ files** generated by Illumina sequencers. Here are the key points:
 
->A noteworthy aspect of digital normalization is its impact on error reduction. Redundant reads in high-throughput sequencing often include errors. By reducing redundancy, digital normalization can indirectly decrease the error rate, leading to cleaner, more accurate datasets. This is crucial for bioinformatic analyses, where precision is paramount.
+>1. **FASTQ Format**:
+   - **FASTQ** is a widely adopted text-based file format that stores both raw sequence data and quality scores.
+   - Illumina sequencing systems produce data in FASTQ format, which includes the actual DNA sequences (reads) and their corresponding quality scores.
+   - These quality scores reflect the confidence in the base calls at each position in the read.
 
->However, it's important to approach digital normalization with a bit of caution. While it effectively reduces data size and computational load, it might inadvertently eliminate low-abundance reads that could be biologically significant. Thus, the parameters for k-mer thresholding and read retention must be chosen carefully to strike a balance between efficiency and data integrity.
+>2. **Redundancy and Data Volume**:
+   - When dealing with large-scale sequencing projects, the sheer volume of data can be overwhelming.
+   - Many reads are similar or identical due to PCR amplification, sequencing errors, and other factors.
+   - Redundant reads contribute to increased storage requirements, computational time, and memory usage during downstream analysis.
 
->In summary, digital normalization is a smart and efficient way to handle the deluge of data from Illumina sequencing, ensuring that the focus remains on the most informative and relevant parts of the genomic jigsaw puzzle.
+>3. **Digital Normalization Process**:
+   - Digital normalization aims to retain a representative subset of reads while discarding redundant ones.
+   - It involves identifying and removing duplicate or nearly identical reads based on sequence similarity.
+   - By doing so, the data volume is reduced without compromising the overall information content.
+
+>4. **Benefits**:
+   - **Storage Efficiency**: Digital normalization significantly reduces the size of FASTQ files, making them more manageable for storage and transfer.
+   - **Computational Speed**: Smaller datasets lead to faster processing times during alignment, variant calling, and other analyses.
+   - **Quality Preservation**: The technique retains high-quality reads while discarding low-quality or repetitive ones.
+
+>5. **Downstream Analysis**:
+   - After digital normalization, the remaining reads can be used for various downstream analyses, such as **alignment** against a reference genome.
+   - Alignment tools map the short reads to specific genomic locations, allowing researchers to study genetic variations, gene expression, and more.
+
+>In summary, digital normalization is a valuable preprocessing step that optimizes the use of sequencing data, streamlines subsequent analyses, and facilitates meaningful biological insights. Researchers can choose from various tools and pipelines to perform this normalization, tailoring the approach to their specific research goals¹[1] ²[2].
+
+>Source: Conversation with Bing, 4/25/2024
+(1) Sequence File Formats | FASTQ & BCL formats for Illumina sequencing. https://support.illumina.com/content/illumina-marketing/en/informatics/sequencing-data-analysis/sequence-file-formats.html.
+(2) Alignment – NGS Analysis. https://learn.gencore.bio.nyu.edu/alignment/.
+(3) Simulated Illumina BRCA1 reads in FASTQ format - figshare. https://f1000.figshare.com/articles/dataset/Simulated_Illumina_BRCA1_reads_in_FASTQ_format/92338.
+(4) NGS : reads quality control - INRA. https://urgi.versailles.inra.fr/download/tutorial/NGS-reads-quality-control/Galaxy-reads-quality-control.pdf.
+(5) NGS Data Analysis for Illumina Platform—Overview and Workflow. https://www.thermofisher.com/us/en/home/life-science/cloning/cloning-learning-center/invitrogen-school-of-molecular-biology/next-generation-sequencing/ngs-data-analysis-illumina.html.
 
 
 Not too bad! We won't use this technique today but a good tool is [BBNorm](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbnorm-guide/) 🔍 from the BBTools package.
@@ -92,4 +123,4 @@ We won't cover this topic in our current adventure, but here is a list of some t
  * Blast (in conjunction with sub-sampling your reads) and Krona to plot results
  * and many more!
 
-# Go to [Task 4](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_2/task_4.md)
+# Go to [Task 4](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_2/task_4.md)
