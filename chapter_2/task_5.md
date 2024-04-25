@@ -50,6 +50,6 @@ Here are my scripts:
 
 Take a look at the output of this command in your terminal (e.g. 'ls -lath'). You will notice that the 'bwa index' program has created a set of new files (e.g .sa, .amb, etc). We don't need to know what these are right now, just that these are the index files that 'bwa mem' will need.
 
-![BWA index output](https://github.com/mbtoomey/genomics_adventure/blob/release/images/bwa__help_index_out.png)
+![BWA index output](https://github.com/mbtoomey/genomics_adventure/blob/release/images/bwa_index_out.png)
 
 # Go to [Task 6](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_2/task_6.md)
