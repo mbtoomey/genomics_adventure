@@ -44,7 +44,7 @@ Here are the files I created:
 * [ecoli_bwa_mem.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_bwa_mem.sh)
 * [ecoli_bwa_mem.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_bwa_mem.sbatch)
 
-This process will take a couple of minutes to complete. You can monitor the progress by reviewing the stdout.txt files, These will look something like this: 
+This process will take a couple of minutes to complete. You can monitor the progress by reviewing the stderr.txt files, These will look something like this: 
 
 ![bwa mapping](https://github.com/mbtoomey/genomics_adventure/blob/release/images/bwa_mem_run.png)
 
