@@ -15,7 +15,7 @@ samtools view -b -S \
 -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped.bam
 ```
 
-Now create the .sh files with the above commands updated for your file system and a .sbatch file, upload to the scripts/BWA folder and submit the job.
+Now create the .sh file with the above commands updated for your file system and a .sbatch file, upload to the scripts/BWA folder and submit the job.
 
 Here are the files I created: 
 * [ecoli_samtools_view.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_samtools_view.sh)
