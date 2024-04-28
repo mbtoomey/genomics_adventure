@@ -34,8 +34,8 @@ So, in order to align our paired reads using multi-threading, and output to a fi
 bwa mem -t 4 \
 /scratch/mbtoomey/BIOL7263_Genomics/reference_sequences/ecoli/GCF_000005845.2_ASM584v2_genomic \
 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_1.fq.gz \
-~/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_2.fq.gz
--o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/ecoli_mapped.sam
+/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_2.fq.gz
+-o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped.sam
 ```
 
 Now create the .sh files with the above commands updated for your file system and a .sbatch file with the 'n-task = 4' option, upload to the scripts/BWA folder and submit the job.
