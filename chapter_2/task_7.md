@@ -11,14 +11,15 @@ We can see that we need to provide 'samtools view' with a reference genome as a 
 ```bash
 samtools view -b -S \
 -T /scratch/mbtoomey/BIOL7263_Genomics/reference_sequences/ecoli/GCF_000005845.2_ASM584v2_genomic.fna \
-/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped.sam -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped.bam
+/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped.sam \
+-o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped.bam
 ```
 
 Now create the .sh files with the above commands updated for your file system and a .sbatch file, upload to the scripts/BWA folder and submit the job.
 
 Here are the files I created: 
-*[ecoli_samtools_view.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_samtools_view.sh)
-*[ecoli_samtools_view.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_samtools_view.sbatch)
+* [ecoli_samtools_view.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_samtools_view.sh)
+* [ecoli_samtools_view.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_samtools_view.sbatch)
 
 NB - Again we are using the '-o' option, but a simple redirect is also possible. You may also see the options contracted as '-bS' in other tutorials, and it is perfectly acceptable to do that, but in the beginning I like to make it clear we are using two separate options so we know exactly what is going on.
 
@@ -31,7 +32,8 @@ catch it now rather than ten commands later. Have you noticed that the 'BAM' fil
 Once the conversion is complete we will need to sort the BAM file, this is so that the reads are stored in the order they appear along the 'chromosomes', or 'scaffolds', or 'contigs' in your reference. We can do this using the 'samtools sort' command. There are a couple of different ways to sort a BAM file, and it is left to the user to decide which is best. For the next task we will use the default options and it will take about 2 minutes to complete.
 
 ```bash
-samtools sort /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped.bam -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped_sorted.bam
+samtools sort /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped.bam \
+-o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped_sorted.bam
 ```
 
 ## A Note on Efficiency
@@ -47,9 +49,11 @@ bwa mem -t 4 \
 
 samtools view -b -S \
 -T /scratch/mbtoomey/BIOL7263_Genomics/reference_sequences/ecoli/GCF_000005845.2_ASM584v2_genomic.fna \
-/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped.sam -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped.bam
+/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped.sam \
+-o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped.bam
 
-samtools sort /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped.bam -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped_sorted.bam
+samtools sort /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped.bam \
+-o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped_sorted.bam
 ```
 
 but we can also write it as one command, like this:
@@ -66,7 +70,7 @@ Notice how in the second example we have used one less command too. This is beca
 We can put these together into a job submission and save time because we will not need to wait for multiple jobs to queue. 
 
 Here are the files I created: 
-*[ecoli_map_sort.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_map_sort.sh)
-*[ecoli_map_sort.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_map_sort.sbatch)
+* [ecoli_map_sort.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_map_sort.sh)
+* [ecoli_map_sort.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_map_sort.sbatch)
 
 # Go to [Task 8](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_2/task_8.md)
