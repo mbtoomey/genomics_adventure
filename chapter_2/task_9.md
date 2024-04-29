@@ -5,7 +5,7 @@ samtools flagstat /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapp
 ```
 This should only take a few seconds. Once complete you can view the 'mappingstats.txt' file using your favourite text editor or command (e.g. nano, vi, more or cat).
 
-![samtools flagstat results](https://github.com/mbtoomey/genomics_adventure/blob/release/images/flagstat_result.png)
+![samtools flagstat results](https://github.com/mbtoomey/genomics_adventure/blob/release/images/flagstat_results.png)
 
 On the first line we can see that we have 5,645,403 reads in total, and none of which failed QC. Next, 97.9% of the reads mapped to the reference genome and 97.56% mapped with the expected distance between them, as paired reads. And only 63 reads could not have their other read-pair mapped.
 
