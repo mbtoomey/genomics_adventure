@@ -3,7 +3,7 @@ The Integrative Genome Viewer (IGV) is a tool developed by the Broad Institute f
 
 For this task you will need to run IGV on your local computer. Please download and install IGV from [here](https://igv.org/doc/desktop/#DownloadPage/). The easiest way to go is to select the "Java included" package appropriate for your OS.  
 
-We will need load the genome reference and our alignments locally so I recommend downloading the **mapping_to_reference** folder and **reference_sequences/ecoli** with SCP or WinSCP. 
+We will need load the genome reference and our alignments locally so I recommend downloading the *mapping_to_reference* folder and *reference_sequences/ecoli* with SCP or WinSCP. 
 
 The IGV viewer should appear, as below (or similar), and you will notice that by default a human genome has been selected in the first drop down box.
 
@@ -45,13 +45,13 @@ If you right click on the name of the .bam track you can select the option to 'v
 
 ![igv view as pairs](https://github.com/mbtoomey/genomics_adventure/blob/release/images/chapter_2_task_11_image_8a.png)
 
-Below the coverage graph is a representation of each read pair as it is mapped to the genome. If you hold **Ctrl* and left click on a read it will highlight the pair. 
+Below the coverage graph is a representation of each read pair as it is mapped to the genome. If you hold *Ctrl* and left click on a read it will highlight the pair. 
 
 ![igv](https://github.com/mbtoomey/genomics_adventure/blob/release/images/chapter_2_task_11_image_8.png)
 
 These pairs consists of 2 reads with a gap (there may be no gap if the reads overlap) Any areas of mismatch either due to inconsistent distances between paired-end reads or due to differences between the reference and the read and are highlighted by a colour. The brighter the colour, the higher the base-calling quality is estimated to be. Differences in a single read are likely to be sequencing errors. Differences consistent in all reads are likely to be mutations.
 
-left click (w/o holding **Ctrl**) on a read to get detailed information about the reads' alignment.
+left click (w/o holding *Ctrl*) on a read to get detailed information about the reads' alignment.
 
 ![read info](https://github.com/mbtoomey/genomics_adventure/blob/release/images/chapter_2_task_11_image_9.png)
 
