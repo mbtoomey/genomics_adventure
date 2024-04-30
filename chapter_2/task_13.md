@@ -60,4 +60,4 @@ It should be clear from this quick exercise that trying to work out where SNPs a
  * Genuine SNPs/Indels should be supported by a good (i.e. 20-30x) depth of coverage
  * Very important mutations (i.e. ones relied upon in a paper) should be confirmed via PCR/Sanger sequencing.
 
-# Go to [Task 14](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_2/task_14.md)
+# Go to [Task 14](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_2/task_14.md)

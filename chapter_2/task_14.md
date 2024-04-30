@@ -59,7 +59,7 @@ Here are the files I created:
 
 You are safe to ignore any warnings that you see. This command creates a file called 'var.called.filt.recode.vcf'. Once complete, you can try viewing the file using the 'more' command (or your favourite text editor). You should see something similar to below, (lines beginning with a '#' are just comment lines explaining the output):
 
-![vcf output](https://github.com/guyleonard/genomics_adventure/blob/f6986943cc8b37de06003550777a771068e7fbee/chapter_2/images/chapter_2_task_14_image_2.png)
+![vcf output](https://github.com/mbtoomey/genomics_adventure/blob/release/images/chapter_2_task_14_image_2.png)
 
 You can see the chromosome, position, reference and alternate allele as well as a quality score for the SNP. This is a VCF file (Variant Call File), a standard developed for the [1000 Genomes Project](https://en.wikipedia.org/wiki/1000_Genomes_Project). The full specification is given [here](http://samtools.github.io/hts-specs/VCFv4.2.pdf) :PDF: :mag:, but you don't need to fully understand or read the whole document - just use it for reference.
 
@@ -67,9 +67,9 @@ The lines starting with 'DP' and 'INDEL' contain various details concerning the 
 
 You can now try loading the VCF file into IGV:
 
-![igv with vcf](https://github.com/guyleonard/genomics_adventure/blob/f6986943cc8b37de06003550777a771068e7fbee/chapter_2/images/chapter_2_task_14_image_3.png)
+![igv with vcf](https://github.com/mbtoomey/genomics_adventure/blob/release/images/chapter_2_task_14_image_3.png)
 
 ## Compare the Variants Found using this Method to Those You Found in the Manual Section
 Can you see any variants which may have been missed? Often variants within a few bp of indels are filtered out as they could be spurious SNPs thrown up by a poor alignment. This is especially the case if you use non-gapped aligners such as Bowtie.
 
-# Go to [Task 15](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_2/task_15.md)
+# Go to [Task 15](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_2/task_15.md)
