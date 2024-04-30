@@ -1,0 +1,1 @@
+bcftools call -c -v --ploidy 1 -O v -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/var.called.vcf /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/var.raw.vcf

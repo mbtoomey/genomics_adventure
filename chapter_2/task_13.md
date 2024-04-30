@@ -13,13 +13,12 @@ Here are some regions where there are differences in the organism sequenced and 
 Paste each of the genomic locations in this box to IGV and click go:
 
 ```
-NC_000913.3:2,108,392-2,133,153
-NC_000913.3:3,662,049-3,663,291
+NC_000913.3:1,189,605-1,217,811
+NC_000913.3:1,291,997-1,295,522
 NC_000913.3:4,296,249-4,296,510
-NC_000913.3:565,965-566,489
 ```
 
-#### Region NC_000913.3:2,108,392-2,133,153
+#### Region NC_000913.3:1,189,605-1,217,811
 
 This area corresponds to a drop in coverage identified by QualiMap. It looks like a fairly large region of about 17 kbases which was present in the reference and is missing from our sequenced genome. It looks like about 12 genes from the reference strain are not present in our strain.
 
@@ -27,22 +26,22 @@ Q: Is this real or an artefact?
 
 A: We have coverage of about 60x either side of the deletion and nothing at all within. There are nice clean edges to the start and end of the deletion. We also have paired reads which span the deletion. This is exactly what you would expect if the two regions of coverage were actually joined together. Therefore, it is most likely a deletion event.
 
-#### Region NC_000913.3:3,662,049-3,663,291
+#### Region NC_000913.3:1,291,997-1,295,522
 
 Zoom right in until you can see the reference sequence and protein sequence at the bottom of the display.
 
-The first thing to note is that only discrepancies with respect to the reference are shown. If a read is entirely the same as its reference, it will appear compltely grey. Blue and red blocks indicate the presence of an 'abnormal' distance between paired-end reads. Note, unless this is consistent across most of the reads at a given position, it is not likely to be significant.
+The first thing to note is that only discrepancies with respect to the reference are shown. If a read is entirely the same as its reference, it will appear completely grey. Blue and red blocks indicate the presence of an 'abnormal' distance between paired-end reads. Note, unless this is consistent across most of the reads at a given position, it is not likely to be significant.
 
 Here we can observe a C -> T SNP. This changes the codon from CAG->TAG (remember to check what strand the gene is on - this one is on the forward strand, if it was on the reverse strand you would have to take the reverse complement of the codon to interpret the amino acid it codes for) and results in a Gln -> Stop mutation in the final protein product which is very likely to change the effect of the protein product. 
 
-Hover over the gene to get some more information from the annotation... Since it is a drug resistance protein it could be very significant!!
+Click on the gene in the .gff track to get some more information from the annotation. What is this gene? Try search this gene on [ecocyc.org](https://ecocyc.org/) to get more info about its function. 
 
 
 One additional check we can perform is whether the SNPs occur when reading the forward strand. We can check this by looking at the direction of the grey reads, or by hovering over the coverage graph. We can see that approximately half of the bases reporting the C -> T mutation occur in read 1 (forward arrow), and half in read 2 (reverse arrow). This adds confidence to the base-call as it reduces the likelihood of this SNP being the result of a PCR duplication error.
 
 Note, sequencing errors in Illumina data can be quite common (We rely on depth of sequencing to average out these errors. This is why people often mention that a minimum median coverage of 20-30x across the genome is required for accurate SNP-calling with Illumina data). This is not always true for 'simple' organisms such as prokaryotes, but for diploid and polyploid organisms it becomes much more important because each position may have one, two or multiple alleles changed.
 
-#### Regions U00096.3:4,296,332-4,296,428
+#### Regions NC_000913.3:4,296,249-4,296,510
 
 Much of the same guidelines apply for indels as they do for SNPs. Here we have an insertion of two bases 'CG' in our sample compared to the reference. Again, we can see how much confidence we have that the insertion is real by checking that the indel is found on both read 1 and read 2 and on both strands.  
 

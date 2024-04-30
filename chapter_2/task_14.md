@@ -5,8 +5,6 @@ Viewing alignments is useful when convincing yourself, and your peers, that a pa
 To 'call' (predict) variants we can use a number of packages (e.g. VarScan, GATK, Picard Tools). However here, we will show you how to use the 'bcftools' package. First we need to generate a 'pileup' file which contains only the locations with the variants.
 
 ## Identify SNPs and Indels using Automated Variant Callers
-Make sure you are in the directory.
-> ~/workshop_materials/genomics_adventure/sequencing_data/ecoli/mapping_to_reference
 
 Then type the following
 ```bash
@@ -15,38 +13,49 @@ bcftools mpileup
 
 You should see a screen similar to the following:
 
-![bcf tools](https://github.com/guyleonard/genomics_adventure/blob/f6986943cc8b37de06003550777a771068e7fbee/chapter_2/images/chapter_2_task_14_image_1.png)
+![bcf tools](https://github.com/mbtoomey/genomics_adventure/blob/release/images/chapter_2_task_14_image_1.png)
 
 If you run 'bcftools' on large numbers of datasets with limited coverage where recombination is a factor, you can obtain increased sensitivity by passing all the BAM files to the variant caller simultaneously (hence the multiple BAM file options in bcftools).
 
-Now, lets type the following:
+Now, lets setup a .sh file with the following:
 ```bash
 bcftools mpileup -O v -P Illumina --threads 4 \
--f ~/workshop_materials/genomics_adventure/reference_sequences/ecoli/GCF_000005845.2_ASM584v2_genomic.fna \
-ecoli_mapped_namesort_fixmate_sort_markdup.bam > var.raw.vcf
+-f /scratch/mbtoomey/BIOL7263_Genomics/reference_sequences/ecoli/GCF_000005845.2_ASM584v2_genomic.fna \
+/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped_namesort_fixmate_sort_markdup.bam > /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/var.raw.vcf
 ```
+
+Here are the files I created: 
+* [ecoli_vcf.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_vcf.sh)
+* [ecoli_vcf.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_vcf.sbatch)
 
 This process may take 20 minutes or so, and will generate a '[VCF](https://en.wikipedia.org/wiki/Variant_Call_Format)' :mag: (read up a little and read on whilst you wait) file containing the raw unfiltered variant calls for each position in the genome. Note that we are asking 'bcftools mpileup' to generate an uncompressed VCF output with the '-O v' option. The '-P Illumina' tells 'bcftools' that it is dealing with Illumina data, so that it can apply to the correct model to help account for mis-calls and/or indels. 
 
 This output by itself is not super useful on its own, as it contains information on each position in the genome. So let’s use 'bcftools' again to 'call' what it thinks are the variant sites.
 
 ```bash
-bcftools call -c -v --ploidy 1 -O v -o var.called.vcf var.raw.vcf
+bcftools call -c -v --ploidy 1 -O v -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/var.called.vcf \
+/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/var.raw.vcf
 ```
+Here are the files I created:
+* [ecoli_call.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_call.sh)
+* [ecoli_call.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_call.sbatch)
 
-Here we have asked 'bcftools' to 'call' variants assuming a ploidy of 1, and to output only the variant sites in the 'VCF' format. Now, using the tool 'grep' we can count how many sites were identified as being variant sites (i.e. sites with a potential mutation). We can ask grep not to count lines beginning with a comment (#) also. Please ask a TA (or read grep's manual if you want to find out what the command is doing).
+Here we have asked 'bcftools' to 'call' variants assuming a ploidy of 1, and to output only the variant sites in the 'VCF' format. Now, using the tool 'grep' we can count how many sites were identified as being variant sites (i.e. sites with a potential mutation). We can ask grep not to count lines beginning with a comment (#) also. 
 
 ```bash
-grep -v -c  "^#" var.called.vcf
+grep -v -c  "^#" /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/var.called.vcf
 ```
 
-You should find around 174 sites. Don't worry if your number isn't exactly the same for this adventure (different versions of tools may contain bugs or updates that can change output between them, this is why it is important to document your work including version numbers of the programs you have used). Now we can filter this further, and with a tool made specifically to work with VCF files, in order to ensure we only retain regions where we have >90% allele frequency - we can do this with a tool called 'vcftools'. (are these tools pronounced the same in Spanish? :stuck_out_tongue_winking_eye: answers on a postcard :love_letter:)
+You should find around 174 sites. Don't worry if your number isn't exactly the same for this adventure (different versions of tools may contain bugs or updates that can change output between them, this is why it is important to document your work including version numbers of the programs you have used). Now we can filter this further, and with a tool made specifically to work with VCF files, in order to ensure we only retain regions where we have >90% allele frequency - we can do this with a tool called 'vcftools'. 
 
 ```bash
 vcftools --minDP 10 --min-alleles 2 --max-alleles 2 \
---non-ref-af 0.9 --vcf var.called.vcf --recode --recode-INFO-all \
---out var.called.filt 
+--non-ref-af 0.9 --vcf /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/var.called.vcf --recode --recode-INFO-all \
+--out /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/var.called.filt 
 ```
+Here are the files I created:
+* [ecoli_filt.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_filt.sh)
+* [ecoli_filt.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_filt.sbatch)
 
 You are safe to ignore any warnings that you see. This command creates a file called 'var.called.filt.recode.vcf'. Once complete, you can try viewing the file using the 'more' command (or your favourite text editor). You should see something similar to below, (lines beginning with a '#' are just comment lines explaining the output):
 
