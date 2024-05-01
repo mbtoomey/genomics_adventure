@@ -6,7 +6,9 @@ Check that the number of entries in both fastq files is the same. Also check tha
   <summary>Try before you check here</summary>
   There are multiple ways to do this. Here's how we did it:
   
-  ```
+  ```bash
+  cd /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly
+  
   grep -c "^@SRR" unmapped_r1.fastq unmapped_r2.fastq 
   unmapped_r1.fastq:56710
   unmapped_r2.fastq:56710
@@ -35,4 +37,4 @@ Do these look reasonably good? Remember, some reads will fail to map to the refe
 
 Assuming these reads look ok to you, we will proceed with preparing them for de novo assembly!
 
-# Go to [Task 3](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_3/task_3.md)
+# Go to [Task 3](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_3/task_2.md)
