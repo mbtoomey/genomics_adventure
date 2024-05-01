@@ -6,7 +6,7 @@ Now, we will examine those reads which did not map to the reference genome. We w
 ## Task 1 - Extract the Unmapped Reads
 Let's make sure we are in the right place to start out adventure and refresh our memories of what is in this directory.
 ```bash
-cd ~/workshop_materials/genomics_adventure/sequencing_data/ecoli
+cd /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/
 
 ls -lath
 ```
@@ -20,7 +20,7 @@ cd unmapped_assembly
 
 We want to extract all of the reads that do NOT map to the assembly. Luckily, in the SAM/BAM format there is a special 'bitwise flag' or code that identifies how the reads and their read-mates are aligned to a reference. They can be quite confusing at first, and there are many combinations. We will have a look at them now by viewing the first five lines our previously made BAM file.
 ```bash
-samtools view ../mapping_to_reference/ecoli_mapped_namesort_fixmate_sort_markdup.bam | head -n 5
+samtools view /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped_namesort_fixmate_sort_markdup.bam | head -n 5
 ```
 
 You should see a bunch a of text, numbers and sequence data on your screen. Don't panic, this is just how the SAM format looks. It is arranged in columns separated by a tab, and each row is one read. At this time we are only really interested in the second column (the flag), you can look up the meaning for the rest [here](https://en.wikipedia.org/wiki/SAM_(file_format)#Format):mag:.
@@ -42,7 +42,7 @@ Now, using the "Decoding SAM flags" tool, can you figure out what flag number we
 
 Now that we have identified the corect bit flag, we can go ahead with filtering of the BAM file from Chapter 2, here using samtools.
 ```bash
-samtools view -b -f 12 ../sequencing_data/ecoli/mapping_to_reference/ecoli_mapped_namesort_fixmate_sort_markdup.bam -o unmapped.bam
+samtools view -b -f 12 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/mapping_to_reference/ecoli_mapped_namesort_fixmate_sort_markdup.bam -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/unmapped.bam
 ```
 
 This command outputs a BAM file "-b" and filters only those with a corresponding bit flag of "-f 12".
@@ -57,10 +57,16 @@ Oh no! Why do all the values say 77 and 141? :sob: I thought you said it was 12?
 Okay, now we are happy again! :smiley: We can continue on our journey, remember we were hoping to extract the unmapped reads for assembly. However, we need our reads in FASTQ format, but right now they are trapped in BAM format.
 
 To convert them we will use the [bamtofastq](https://bedtools.readthedocs.io/en/latest/content/tools/bamtofastq.html):mag: program from the [bedtools](https://bedtools.readthedocs.io/en/latest/index.html):mag: package. There are other tools that you can use too, for example in the [Picard](http://picard.sourceforge.net/):mag: package there is a tool called SamToFastq which provides a similar function. But we will not use this today. 
+```bash
+bedtools bamtofastq -i /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/unmapped.bam \
+-fq /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/unmapped_r1.fastq \
+-fq2 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/unmapped_r2.fastq
 ```
-bedtools bamtofastq -i unmapped.bam -fq unmapped_r1.fastq -fq2 unmapped_r2.fastq
-```
+Here are the files I created: 
+* [bam_to_fasta.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/bam_to_fasta.sh)
+* [bam_to_fasta.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/bam_to_fasta.sbatch)
+
 
 Nicely done! Now lets head over to Task 2.
 
-# Go to [Task 2](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_3/task_2.md)
+# Go to [Task 2](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_3/task_2.md)
