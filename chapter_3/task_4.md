@@ -2,14 +2,20 @@
 We will use the program called - Quality Assessment Tool for Genome Assemblies - [QUAST](http://quast.sourceforge.net/quast) to generate some statistics on the assembly.
 
 ```bash
-quast.py --output-dir quast spades_assembly/contigs.fasta
+quast.py --output-dir /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/spades_assembly/quast \
+/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/spades_assembly/contigs.fasta
 ```
+
+Here are the files I created: 
+* [unmapped_quast.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/unmapped_quast.sh)
+* [unmapped_quast.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/unmapped_quast.sbatch)
 
 This will create a directory called 'quast' and create some statistics on the assembly you produced, don’t worry if the results look a little different to the example.
 
 Take a look at the 'report.txt' file:
+
 ```
-cat quast/report.txt
+cat /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/spades_assembly/quast/report.txt
 ```
 
 Example output:
@@ -46,4 +52,4 @@ The N50 and L50 measures are very important in a normal assembly and we will vis
 
 You will notice that we have a couple of large contigs greater than 25kb long - what do you think they might be? Also ~12 other contigs longer than 1kb. We need to find out what they are!
 
-# Go to [Task 5](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_3/task_5.md)
+# Go to [Task 5](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_3/task_5.md)

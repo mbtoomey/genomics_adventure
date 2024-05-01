@@ -12,8 +12,14 @@ SPAdes runs the modules that are required for a particular dataset and it produc
 
 Let's start the assembler because it takes about 10 minutes to run (this might be a nice time to get a :coffee: or to stretch your legs :walking:). You will see a lot of output on the screen.
 ```bash
-spades.py --careful -o spades_assembly -1 unmapped_r1.fastq -2 unmapped_r2.fastq
+spades.py --careful -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/spades_assembly \
+-1 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/unmapped_r1.fastq \
+-2 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/unmapped_r2.fastq
 ```
+
+Here are the files I created: 
+* [unmapped_spades.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/unmapped_spades.sh)
+* [unmapped_spades.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/unmapped_spades.sbatch)
 
 We are running the SPAdes assembly pipeline and specifying the "--careful" option to run a mismatch correction algorithm to reduce the number of errors; put the output in the "-o spades_assembly" directory and the read libraries (-2 and -2) to assemble. Just because SPAdes does a lot for you does not mean you should not try to understand the process...
 
@@ -42,6 +48,6 @@ This contains the final results of the assembly in fasta format.
 This contains the final results after scaffolding (which means using paired end information to join contigs together with gaps). In this case the files are identical, probably because the sum of the lengths of our paired reads is not much smaller than our insert size (there are very few large gaps between reads).
 
 ### assembly_graph.fastg
-Contains SPAdes assembly graph in FASTG format - this is a slightly different format that contains more information than fasta - for example it can contain alternative alleles in diploid assemblies. We don't need it here, but see ​[here](http://fastg.sourceforge.net/FASTG_Spec_v1.00.pdf) :file: if you might be working with diploid organisms. You can use the [Bandage](http://rrwick.github.io/Bandage) program to view this file.
+Contains SPAdes assembly graph in FASTG format - this is a slightly different format that contains more information than fasta - for example it can contain alternative alleles in diploid assemblies. We don't need it here, but see ​[here](http://fastg.sourceforge.net/FASTG_Spec_v1.00.pdf) if you might be working with diploid organisms. You can use the [Bandage](http://rrwick.github.io/Bandage) program to view this file.
 
-# Go to [Task 4](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_3/task_4.md)
+# Go to [Task 4](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_3/task_4.md)
