@@ -5,8 +5,13 @@ We will use codon table 11 which defines the bacterial codon usage [table](https
 
 PS - You can go back to typing the commands now! :smile:
 ```bash
-getorf -table 11 -circular N -minsize 300 -sequence contigs.fasta -outseq contigs.orf.fasta
+getorf -table 11 -circular N -minsize 300 -sequence \
+/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/spades_assembly/contigs.fasta -outseq \
+/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/spades_assembly/contigs.orf.fasta
 ```
+Here are the files I created: 
+* [unmapped_orf.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/unmapped_orf.sh)
+* [unmapped_orf.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/unmapped_orf.sbatch)
 
 If we look at the output file we can see that it is a FASTA formatted file containing the name of the contig on which the ORF occurs, followed by an underscore and a number (e.g. _1) to indicate the number of the ORF on that contig. The numbers in square brackets indicate the start and end position of the ORF on the contig (i.e. in nucleotide space).
 
@@ -38,8 +43,14 @@ Check that the contigs do not appear in the reference sequence. In theory, the u
 
 To do this, we can use the BLAST+ package in a different mode to compare two sequences against each other. Unlike the previous examples where we have searched against a database of sequences, here we are doing a simple search of the contigs against the reference genome. You can run this one, it will be very fast. We won't save the results to a file, instead they will show on your terminal.
 ```
-blastn -subject ../../../reference_sequences/ecoli/GCF_000005845.2_ASM584v2_genomic.fna -query contigs.fasta -outfmt 6
+blastn -subject /scratch/mbtoomey/BIOL7263_Genomics/reference_sequences/ecoli/GCF_000005845.2_ASM584v2_genomic.fna \
+-query /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/spades_assembly/contigs.fasta -outfmt 6 \
+-out /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/spades_assembly/unmapped_blast_to_genome
 ```
+
+Here are the files I created: 
+* [unmapped_blastn.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/unmapped_blastn.sh)
+* [unmapped_blastn.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/unmapped_blastn.sbatch)
 
 You should see something similar to below, it shows that some of the contigs have hit the reference sequence.
 ```bash
@@ -52,5 +63,5 @@ NODE_5_length_1363_cov_71.788491	NC_000913.3	100.000	28	0	0	1	28	4499486	4499513
 
 In the records above the e-values are very significant; however, since our subject sequence is now very small and we know that it is related to our strain, it is not surprising that there are some hits. We should only be concerned about whole contigs that map closely to the reference genome.
 
-# Go to [Task 7](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_3/task_7.md)
+# Go to [Task 7](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_3/task_7.md)
 
