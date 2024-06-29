@@ -7,18 +7,8 @@ To do this we will use the program SPAdes to try to get the best possible assemb
 
 ## Stop. Assembly Time!
 
-Well, the assembly will take a long time - so we have kindly precomputed it for you - nonetheless we shall step through the process. Here we go!
+The command you will use to run SPAdes is this: 
 
-Let's get our files and folders in order, return to the main directory and create a new one for this work, and make a link to the pre-computed assembly.
-```bash
-cd ~/workshop_materials/genomics_adventure
-
-mkdir denovo_assembly && cd denovo_assembly
-
-ln -s ../../precomputed/denovo_assembly/assembly .
-```
-
-The command you would use to run SPAdes is this (do not run, it would take ~3 hours):
 ```bash
 spades.py -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly -1 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_1.fq.gz -2 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_2.fq.gz
 ```
