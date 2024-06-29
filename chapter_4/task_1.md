@@ -20,8 +20,12 @@ ln -s ../../precomputed/denovo_assembly/assembly .
 
 The command you would use to run SPAdes is this (do not run, it would take ~3 hours):
 ```bash
-spades.py -o assembly -1 ../sequencing_data/ecoli/read_1_val_1.fq.gz -2 ../sequencing_data/ecoli/read_2_val_2.fq.gz
+spades.py -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly -1 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_1.fq.gz -2 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_2.fq.gz
 ```
+
+Here my scripts for this job:
+* [full_spades.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/full_spades.sh)
+* [full_spades.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/full_spades.sbatch)
 
 ### Recap on Assemby Theory
 We will be using an assembler called [SPAdes](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3342519/). It generally performs pretty well with a variety of genomes. It can also incorporate longer reads produced from PacBio sequencers that we will use later in our adventure.
@@ -48,15 +52,15 @@ SPAdes allows you to choose more than one k-mer length - it then performs an ass
 
 Let's look at the assembly process in more detail, let's say you have a single read "AACTAACGACGCGCATCAAAA". The set of k-mers, with length 6 (i.e. 6-mers), obtained from this read, would be created by taking the first six bases, then moving the window along one base, taking the next 6 bases and so-on until the end of the read. For example, "AACTAA", followed by "ACTAAC", then "CTAACG", "TAACGA", "TAACGAC" and so on...
 
-![kmers](https://github.com/guyleonard/genomics_adventure/blob/74a2974505412c3131cdc7612792761e4d1f855f/chapter_4/images/chapter_4_task_1_image_1.png)
+![kmers](https://github.com/mbtoomey/genomics_adventure/blob/release/images/chapter_4_task_1_image_1.png)
 
 You may well ask, “So what? How does that help”? For a single read, it really doesn't help. However, let's say that you have another read which is identical except for a single base. Rather than represent both reads separately, we need only store the k-mers which differ and the number of times they occur. Note the 'bubble' like structure which occurs when a single base-change occurs. This kind of representation of reads is called a 'k-mer graph' (sometimes inaccurately referred to as a de Bruijn graph).
 
-![kmers](https://github.com/guyleonard/genomics_adventure/blob/74a2974505412c3131cdc7612792761e4d1f855f/chapter_4/images/chapter_4_task_1_image_2.png)
+![kmers](https://github.com/mbtoomey/genomics_adventure/blob/release/images/chapter_4_task_1_image_2.png)
 
 Now let's see what happens when we add in a third read. This is identical to the first read except for a change at another location. This results in an extra dead-end being added to the path.
 
-![kmers](https://github.com/guyleonard/genomics_adventure/blob/74a2974505412c3131cdc7612792761e4d1f855f/chapter_4/images/chapter_4_task_1_image_4.png)
+![kmers](https://github.com/mbtoomey/genomics_adventure/blob/release/images/chapter_4_task_1_image_4.png)
 
 The job of any k-mer based assembler is to find a path through the k-mer graph which correctly represents the genome sequence.
 
@@ -65,7 +69,7 @@ In the figure above, you can see that the coverage of various k-mers varies betw
 
 In a real graph you would have millions of k-mers and thousands of possible paths to deal with. The best way to estimate the coverage cutoff in such cases is to look at the frequency plot of contig (node) coverage, weighted by length. In the example below you can see that contigs with a coverage below 7x or 8x occur very infrequently. As such it is probably a good idea to exclude those contigs which have coverage less than this – they are likely to be errors.
 
-![kmers](https://github.com/guyleonard/genomics_adventure/blob/6039529794be83027eabaa712c81b6f705c97314/chapter_4/images/chapter_4_task_1_image_5.png)
+![kmers](https://github.com/mbtoomey/genomics_adventure/blob/release/images/chapter_4_task_1_image_5.png)
 
 In the example above you can see a stretch of DNA with many reads mapping to it. There are two repetitive regions A1 and A2 which have identical sequence. If we try to assemble the reads without any knowledge of the true DNA sequence, we will end up with an assembly that is split into two or more contigs rather than one.
 
@@ -73,4 +77,4 @@ One contig will contain all the reads which did not fall into A1 and A2. The oth
 
 If we had 5 repeats we would expect 5x more coverage relative to the non-repetitive contig. As such, provided we know what level of coverage we expect for a given set of data, we can use this information to try and resolve the number of repeats we expect.
 
-# Now go to [Task 2](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_4/task_2.md)
+# Now go to [Task 2](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_4/task_2.md)

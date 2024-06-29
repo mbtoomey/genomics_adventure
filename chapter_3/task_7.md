@@ -50,4 +50,4 @@ Examine one or two more domains from your results file - is there anything inter
 
 Congratulations, we have finished Chapter 3! Give yourselves a pat on the back, have a biscuit or stretch your legs! Chapter 4 is inbound and is a wild ride of *de novo* assembly! 
 
-# Go to [Chapter 4]((https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_4/task_1.md)
+# Go to [Chapter 4](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_4/task_1.md)
