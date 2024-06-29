@@ -2,7 +2,7 @@
 Change in to the "assembly" directory and prepare to run QUAST. We did this before in Chapter 3 - Task 4...
 
 ```bash
-cd assembly
+cd /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly
 
 quast.py --output-dir quast contigs.fasta
 ```
@@ -36,6 +36,6 @@ L75                         30
 
 You can see that there are 195 contigs in the assembly - so it is far from complete. NB - your results may differe slightly. The [N50](http://en.wikipedia.org/wiki/N50_statistic):mag: is 111K and the N75 is 54K which tells us that most of the assembly is in quite large contigs. What you see if fairly normal for a short read assembly - you shouldn't expect complete chromosomes.
 
-A good check at this point is to map the original reads back to the 'contigs.fasta' file and check that all positions are covered by reads. Amazingly, it is actually possible for *de novo* assemblers to generatecontigs to which the original reads will not map!!
+A good check at this point is to map the original reads back to the 'contigs.fasta' file and check that all positions are covered by reads. Amazingly, it is actually possible for *de novo* assemblers to generate contigs to which the original reads will not map!!
 
-# Go to [Task 3](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_4/task_3.md)
+# Go to [Task 3](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_4/task_3.md)
