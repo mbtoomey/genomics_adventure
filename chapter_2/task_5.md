@@ -45,8 +45,8 @@ bwa index /scratch/mbtoomey/BIOL7263_Genomics/reference_sequences/ecoli/GCF_0000
 Here the -p option sets the output folder, so our index will be written to the same location as our refrence sequence. Now upload the .sh and the .sbatch files the scripts/BWA folder and submit the job. 
 
 Here are my scripts: 
-* [ecoli_trim.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/BWA/ecoli_trim.sh)
-* [ecoli_trim.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/BWA/ecoli_trim.sbatch)
+* [ecoli_trim.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_trim.sh)
+* [ecoli_trim.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/ecoli_trim.sbatch)
 
 Take a look at the output of this command in your terminal (e.g. 'ls -lath'). You will notice that the 'bwa index' program has created a set of new files (e.g .sa, .amb, etc). We don't need to know what these are right now, just that these are the index files that 'bwa mem' will need.
 

@@ -1,7 +1,7 @@
 # Map Reads Back to Assembly
 Here we will use BWA again to index the contigs.fasta file and remap the reads. This is almost identical to the procedure we followed during the alignment section, the only difference is that instead of aligning to the reference genome, we are aligning to our newly created reference.
 
-Make sure that you are in the directory "~/workshop_materials/genomics_adventure/denovo_assembly/". Let's create a new directory to keep our work seprate and organised, we will also create a link to our contig data. You may prefer to copy your data, but this way we can see where the contigs.fasta file has come from when we come back to our analyses at a later point.
+Make sure that you are in the directory "/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly". Let's create a new directory to keep our work separate and organized, we will also create a link to our contig data. You may prefer to copy your data, but this way we can see where the contigs.fasta file has come from when we come back to our analyses at a later point.
 
 ```bash
 mkdir mapping_to_assembly
@@ -11,47 +11,55 @@ cd mapping_to_assembly
 ln -s ../assembly/contigs.fasta .
 ```
 
-We now need to index and map our files, this is similar to the steps from Chapter 2... Indeed we will use the QC reads we created in Task 2! We will go through the steps one-by-one, although don't forget you can combine them all in to one step if you are feeling brave!
+We now need to index and map our files, this is similar to the steps from Chapter 2... Indeed we will use the QC reads we created in Task 2! Here are the steps one-by-one, but let's try and combine them into a single script for submission. 
+
 ```bash
 # Index the contigs
-bwa index contig.fasta
+bwa index /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/contig.fasta
 
 # align QC reads to contigs and output SAM file
-bwa mem -t 2 contigs.fasta \
-../../sequencing_data/ecoli/read_1_val_1.fq.gz \
-../../sequencing_data/ecoli/read_2_val_2.fq.gz \
-> contigs_mapped.sam
+bwa mem -t 2 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/contigs.fasta \
+/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_1.fq.gz \
+/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_1.fq.gz \
+> /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped.sam
 ```
 
 Once complete we can convert the SAM file to a BAM file:
 ```bash
-samtools view -bS contigs_mapped.sam > contigs_mapped.bam
+samtools view -bS /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped.sam >  /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped.bam
 ```
 
 And then we can sort the BAM file:
 ```bash
-samtools sort -o contigs_mapped_sorted.bam contigs_mapped.bam
+samtools sort -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped_sorted.bam \
+/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped.bam
 ```
 
 Once completed, we can index the BAM file:
 ```
-samtools index contigs_mapped_sorted.bam
+samtools index /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped_sorted.bam
 ```
 
 <details>
   <summary>Advanced: All in one command</summary>
   ```bash
-  bwa index contigs.fasta && \
-  bwa mem -t 2 contigs.fasta \
-  ../../sequencing_data/ecoli/read_1_val_1.fq.gz \
-  ../../sequencing_data/ecoli/read_2_val_2.fq.gz \
-  | samtools sort -O bam -o contigs_mapped_sorted.bam && \
-  bwa index contigs_mapped_sorted.bam
+  bwa index /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/contigs.fasta && \
+  bwa mem -t 2 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/contigs.fasta \
+/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_1.fq.gz \
+/scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_1.fq.gz \
+  | samtools sort -O bam -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped_sorted.bam && \
+  samtools index /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped_sorted.bam
   ```
+Here my scripts for this job:
+* [align_de_novo.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/align_de_novo.sh)
+* [align_de_novo.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/align_de_novo.sbatch)
+
 </details>
 
 We can then (at last!) obtain some basic summary statistics using the samtools flagstat command:
 ```
+cd /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/
+
 samtools flagstat contigs_mapped_sorted.bam
 
 5904122 + 0 in total (QC-passed reads + QC-failed reads)
@@ -69,9 +77,10 @@ samtools flagstat contigs_mapped_sorted.bam
 36263 + 0 with mate mapped to a different chr (mapQ>=5)
 ```
 
-We can see that very few of the reads do not map back to the conigs. Importantly 99% of the reads are properly paired, which gives us some indication that there are not too many mis-assemblies.
+We can see that very few of the reads do not map back to the contigs. Importantly 99% of the reads are properly paired, which gives us some indication that there are not too many mis-assemblies.
 
 We can run 'qualimap' to get some more detailed information (and some images too), it'll take a couple of minutes:
+
 ```bash
 qualimap bamqc -outdir bamqc -bam contigs_mapped_sorted.bam
 

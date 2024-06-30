@@ -34,7 +34,7 @@ L75                         30
 # N's per 100 kbp           0.00
 ```
 
-You can see that there are 195 contigs in the assembly - so it is far from complete. NB - your results may differe slightly. The [N50](http://en.wikipedia.org/wiki/N50_statistic):mag: is 111K and the N75 is 54K which tells us that most of the assembly is in quite large contigs. What you see if fairly normal for a short read assembly - you shouldn't expect complete chromosomes.
+You can see that there are 195 contigs in the assembly - so it is far from complete. NB - your results may differe slightly. The [N50](http://en.wikipedia.org/wiki/N50_statistic):mag: is 111K and the N75 is 54K which tells us that most of the assembly is in quite large contigs. What you see is fairly normal for a short read assembly - you shouldn't expect complete chromosomes.
 
 A good check at this point is to map the original reads back to the 'contigs.fasta' file and check that all positions are covered by reads. Amazingly, it is actually possible for *de novo* assemblers to generate contigs to which the original reads will not map!!
 

@@ -1,0 +1,3 @@
+bwa index /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/contigs.fasta
+bwa mem -t 2 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/contig.fasta /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_1.fq.gz /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_1.fq.gz | samtools sort -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped_sorted.bam 
+samtools index /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped_sorted.bam
