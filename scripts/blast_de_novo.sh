@@ -1,0 +1,1 @@
+blastn -subject /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/contigs.fasta -query /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/spades_assembly/contigs.fasta -outfmt 6 -out /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/check_plasmid.blastn
