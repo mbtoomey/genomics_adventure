@@ -41,7 +41,7 @@ samtools index /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembl
 
 <details>
   <summary>Advanced: All in one command</summary>
-  ```bash
+```bash
   bwa index /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/contigs.fasta
 bwa mem -t 2 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/contigs.fasta /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_1.fq.gz /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_2.fq.gz > /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped.sam 
 samtools sort -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped_sorted.bam /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped.sam
@@ -89,6 +89,7 @@ qualimap bamqc -outdir /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli
 
 * [qmap_de_novo.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/qmap_de_novo.sh)
 * [qmap_de_novo.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/qmap_de_novo.sbatch)
+
 <details>
 
 
