@@ -86,10 +86,11 @@ qualimap bamqc -outdir /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli
 
 <details>
   <summary>Here my scripts for this job:</summary>
+  
 * [qmap_de_novo.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/qmap_de_novo.sh)
 * [qmap_de_novo.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/qmap_de_novo.sbatch)
 
-<details>
+</details>
 
 
 Download the `bamqc` folder and open the qualimapReport.html file in your browser. 
