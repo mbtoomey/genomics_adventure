@@ -13,9 +13,13 @@ The command you will use to run SPAdes is this:
 spades.py -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly -1 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_1.fq.gz -2 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_2.fq.gz
 ```
 
-Here my scripts for this job:
+<details>
+  <summary>Here my scripts for this job:</summary>
+  
 * [full_spades.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/full_spades.sh)
 * [full_spades.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/full_spades.sbatch)
+
+<details>
 
 ### Recap on Assemby Theory
 We will be using an assembler called [SPAdes](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3342519/). It generally performs pretty well with a variety of genomes. It can also incorporate longer reads produced from PacBio sequencers that we will use later in our adventure.

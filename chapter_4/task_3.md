@@ -43,13 +43,14 @@ samtools index /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembl
   <summary>Advanced: All in one command</summary>
   ```bash
   bwa index /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/contigs.fasta
-bwa mem -t 2 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/contigs.fasta /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_1.fq.gz /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_1.fq.gz > /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped.sam 
+bwa mem -t 2 /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/contigs.fasta /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_1.fq.gz /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/trimmed_reads_val_2.fq.gz > /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped.sam 
 samtools sort -o /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped_sorted.bam /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped.sam
 samtools index /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped_sorted.bam
-  ```
+```
+
 Here my scripts for this job:
-* [align_de_novo.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/align_de_novo.sh)
-* [align_de_novo.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/align_de_novo.sbatch)
+*[align_de_novo.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/align_de_novo.sh)
+*[align_de_novo.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/align_de_novo.sbatch)
 
 </details>
 
@@ -81,9 +82,14 @@ We can run 'qualimap' to get some more detailed information (and some images too
 ```bash
 qualimap bamqc -outdir /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/bamqc -bam /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/assembly/mapping_to_assembly/contigs_mapped_sorted.bam
 ```
-Here my scripts for this job:
+
+<details>
+  <summary>Here my scripts for this job:</summary>
+
 * [qmap_de_novo.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/qmap_de_novo.sh)
 * [qmap_de_novo.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/qmap_de_novo.sbatch)
+
+<details>
 
 Download the `bamqc` folder and open the qualimapReport.html file in your browser. 
 
