@@ -30,7 +30,7 @@ bwa mem -t 4 \
 > XXX.sam
 ```
 
-The tutorial (sorry adventure), like any good story, is designed to be long and you likely won't finish it in less than 3 hours or even in one sitting. Don't worry though, you can always come back to it anytime!
+The tutorial (sorry adventure), like any good story, is designed to be long and will require several sessions to complete. Don't worry though, we have allotted plenty of time in class to work through this!
 
 ## Chapter 1: Once Upon a Time...
 Before our adventure begins we will need to setup a few things: [Home](home.md)
