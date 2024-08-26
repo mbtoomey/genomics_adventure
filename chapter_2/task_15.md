@@ -32,4 +32,4 @@ That concludes the first part of the adveture. You have successfully, Quality Co
 
 In the next installment we will be looking at how to extract and assemble unmapped reads. This will enable us to look at material which may be present in the strain of interest but not in the reference sequence. See you soon! :wave:
 
-# Now Start [Chapter 3](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_3/task_3.md)
+# Now Start [Chapter 3](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_3/task_3.md)
