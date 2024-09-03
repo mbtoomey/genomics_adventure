@@ -19,7 +19,7 @@ mamba init
 
 Now activate the class environment: 
 ```bash
-mamba activate home/mbtoomey/BIOL7263_Genomics
+mamba activate /home/mbtoomey/.conda/envs/BIOL7263_Genomics
 ```
 Now you should see your terminal beginning with `(BIOL7263_Genomics)`. This means conda `BIOL7263_Genomics` environment has been initialized successfully. :warning: You must activate every time you log in. 
 
