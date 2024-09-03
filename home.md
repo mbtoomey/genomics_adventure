@@ -73,7 +73,7 @@ chmod 444 *.gz
 # Now do the same for Chapter 5's Pseudomonas data
 
 # Let's go back up to the main BIOL7263_Genomics folder
-cd .. 
+cd ../.. 
 
 #then make a new folder
 mkdir pseudomonas_gm41 
@@ -130,7 +130,7 @@ We will need to get the PFam-A database of Hidden Markov Models (HMMS) and an Ac
 
 ```bash
 # Let's go back up to the main BIOL7263_Genomics folder
-cd ..
+cd ../..
 
 # create a directory and a sub-directory and move there
 mkdir -p db/pfam && cd db/pfam
