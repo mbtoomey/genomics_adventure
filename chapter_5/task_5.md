@@ -1,40 +1,32 @@
 # Create a Hybrid Assembly
 Now will execute the same command, but this time include the longer PacBio reads to see the effect it has on our assembly.
 
-Return to the pseudomonas directory:
 ```bash
-cd /home/zoo/zool2474/genomics_adventure/pseudomonas
+spades.py --phred-offset 33 --threads 24 --careful \
+-o /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/assembly/hybrid \
+--pacbio /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/SRR1042836_subreads.fastq.gz \
+-1 /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/SRR491287_trimmed_reads_val_1.fq.gz \
+-2 /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/SRR491287_trimmed_reads_val_2.fq.gz
 ```
-Again, this assembly will take too long for now, but it's here for reference anyway.
+Here is how I setup my job: 
+* [pseud_long_assembly.sh](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/pseud_long_assembly.sh)
+* [pseud_long_assembly.sbatch](https://github.com/mbtoomey/genomics_adventure/blob/release/scripts/pseud_long_assembly.sbatch)
 
-:cat: :cat:
-Woah déjà vu. :sunglasses:
+Well, you definitely know the score! Let's run QUAST!! 
 
-:warning: do not run the assembly :warning:
 ```bash
-spades.py --threads 112 --careful -o hybrid \
---pacbio ../sequencing_data/pseudomonas_gm41/SRR1042836_subreads.fastq.gz \
--1 ../sequencing_data/pseudomonas_gm41/SRR491287_1_val_1.fq.gz \
--2 ../sequencing_data/pseudomonas_gm41/SRR491287_2_val_2.fq.gz
+quast.py --output-dir /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/assembly/hybrid/quast /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/assembly/hybrid/contigs.fasta
 ```
 
-Let's find the precomputed data and have a look at it.
-```bash
-# create a symbolic link to the precomputed data
-ln -s ../precomputed/pseudo_hybrid hybrid
-```
-
-Well, you definitely know the score! Let's run QUAST!! But this time we want to compare the two assemblies!!
+Now let's review and compare the `quastreport.txt` for the illumina and hybrid assemblies. 
 
 ```
-cd hybrid
+cat /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/assembly/quast/quastreport.txt
 
-quast.py --output-dir quast ../illumina_only/contigs.fasta contigs.fasta
-
-cat quast/report.txt
+cat /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/hybrid/quast/quastreport.txt
 ```
 
-If you ran the assembly command - outside of the workhop - you may get slightly different results here, as SPAdes uses a random seed.
+Here is my result. You may get slightly different results here, as SPAdes uses a random seed.
 ```
 Assembly                    illumina_only_contigs  hybrid_contigs
 # contigs (>= 0 bp)         612                    265           
@@ -61,4 +53,4 @@ L75                         127                    32
 
 Hooray! It seems that using the longer reads has improved the completeness of our assembly - reducing the number of contigs and increasing the N50.
 
-# Go to [Task 6](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_5/task_6.md)
+# Go to [Task 6](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_5/task_6.md)
