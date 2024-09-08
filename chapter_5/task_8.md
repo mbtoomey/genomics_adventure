@@ -10,6 +10,6 @@ Well done! If you have reached this far, you deserve a round of applause :clap: 
 
 You have completed some of the most common tasks in genomics. You can use same operating procedures to perform an analysis of any dataset, including your own data!
 
-If you got this far, send me a postcard to Guy Leonard, Department of Biology, 11a Mansfield Rd, Oxford OX1 3SZ, United Kingdom!
-
 "- fin -"
+
+p.s. This tutorial represents the hard work of many folks, especially Guy Leonard. If you got this far, send Guy a postcard to thank him and shout-out our seminar - Guy Leonard, Department of Biology, 11a Mansfield Rd, Oxford OX1 3SZ, United Kingdom!
