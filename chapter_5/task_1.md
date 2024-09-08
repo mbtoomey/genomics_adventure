@@ -13,4 +13,4 @@ An approach becoming more and more popular is to combine technologies. For examp
 
 Our exercise will be to use Illumina and PacBio datasets to assemble a species of pseudomonas. These are subsets of data used in "Evaluation and validation of de novo and hybrid assembly techniques to derive high-quality genome sequences" Utturkar et al., 2014. [Link](http://www.ncbi.nlm.nih.gov/pubmed/24930142) :mag:. This paper also contains a good explanation of the process and different approaches that are available.
 
-# Go to [Task 2](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_5/task_2.md)
+# Go to [Task 2](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_5/task_2.md)

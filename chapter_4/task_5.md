@@ -68,4 +68,4 @@ Now you can load the resulting bed file (`orfs_gene.bed`) to the contigs.fasta i
 
 ![igv](https://github.com/mbtoomey/genomics_adventure/blob/release/images/chapter_4_task_5_image_1.png)
 
-# [Chapter 5](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_5/task_1.md) awaits..!
+# [Chapter 5](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_5/task_1.md) awaits..!
