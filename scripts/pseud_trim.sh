@@ -1,0 +1,1 @@
+trim_galore --paired --fastqc --gzip --cores 4 --length 100 /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/SRR491287_1.fastq.gz /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/SRR491287_2.fastq.gz --basename trimmed_reads -o /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/

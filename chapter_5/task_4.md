@@ -1,38 +1,35 @@
 # Task 4 - Assembly Time!
 
-Firstly let's construct an assembly using only the available Illumina data in a new directory!
+Firstly let's construct an assembly using only the short-read Illumina data in a new directory!
 
 ```bash
-cd ~/workshop_materials/genomics_adventure
+cd /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/
 
-mkdir pseudomonas && cd pseudomonas
+mkdir Assembly 
+
+cd Assembly
 ```
 
-The next command, like most of the assemblies in this adventure (and in real life) take some time to complete, so we have precomputed the results for you. But the command is given for your reference.
+The next command, like most of the assemblies in this adventure (and in real life) take some time to complete.
 
-:warning: do not run this next command :warning:
 ```bash
-spades.py --threads 2 --careful -o illumina_only \
--1 ../sequencing_data/pseudomonas_gm41/SRR491287_1_val_1.fq.gz \
--2 ../sequencing_data/pseudomonas_gm41/SRR491287_2_val_2.fq.gz
+spades.py --phred-offset 33 --threads 6 --careful -o /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/assembly/illumina_only \
+-1 /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/SRR491287_trimmed_reads_val_1.fq.gz \
+-2 /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/SRR491287_trimmed_reads_val_2.fq.gz
 ```
+Create the .sh and .sbatch files locally and then upload and execute on OSCER. If your job fails, try increasing `mem` to `48G` and partition to `64gb_24core` in the sbatch. 
 
-Let's find the precomputed data and have a look at it.
+Let's take a look at the assembly. You know the score! Let's run QUAST!!
 ```bash
-# create a symbolic link to the precomputed data
-ln -s ../precomputed/pseudo_illumina_only illumina_only
+quast.py --output-dir /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/assembly/quast /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/assembly/contigs.fasta
+```
+Create the .sh and .sbatch files locally and then upload and execute on OSCER. Here is my result: 
+
 ```
 
-You know the score! Let's run QUAST!!
-```
-cd illumina_only
-
-quast.py --output-dir quast contigs.fasta
-
-cat quast/report.txt
+cat /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/assembly/quast/quastreport.txt
 ```
 
-If you ran the assembly command - outside of the workhop - you may get slightly different results here, as SPAdes uses a random seed.
 ```
 Assembly                    contigs
 # contigs (>= 0 bp)         612    
@@ -58,5 +55,5 @@ L75                         127
 # N's per 100 kbp           0.00
 ```
 
-# Go to [Task 5](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_5/task_5.md)
+# Go to [Task 5](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_5/task_5.md)
 
