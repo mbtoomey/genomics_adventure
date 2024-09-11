@@ -1,0 +1,1 @@
+bwa mem -t 6 /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/mapping_to_assembly/hybrid_assembly /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/SRR491287_trimmed_reads_val_1.fq.gz /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/SRR491287_trimmed_reads_val_2.fq.gz -o /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/mapping_to_assembly/pseud_illumina.sam

@@ -1,0 +1,1 @@
+minimap2 -x map-pb -t 6 /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/assembly/hybrid/contigs.fasta /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/SRR1042836_subreads.fastq.gz -o /scratch/mbtoomey/BIOL7263_Genomics/pseudomonas_gm41/mapping_to_assembly/pseud_pacbio.sam
