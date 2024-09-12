@@ -41,7 +41,7 @@ Open the results file with your favourite text editor (e.g. nano) and search for
 ## Additional Checks
 Check that the contigs do not appear in the reference sequence. In theory, the unmapped reads used to generate the contigs should not assemble into something which will map against the genome. However, it is always possible (especially with more complex genomes), that this might happen.
 
-To do this, we can use the BLAST+ package in a different mode to compare two sequences against each other. Unlike the previous examples where we have searched against a database of sequences, here we are doing a simple search of the contigs against the reference genome. You can run this one, it will be very fast. We won't save the results to a file, instead they will show on your terminal.
+To do this, we can use the BLAST+ package in a different mode to compare two sequences against each other. Unlike the previous examples where we have searched against a database of sequences, here we are doing a simple search of the contigs against the reference genome.
 ```
 blastn -subject /scratch/mbtoomey/BIOL7263_Genomics/reference_sequences/ecoli/GCF_000005845.2_ASM584v2_genomic.fna \
 -query /scratch/mbtoomey/BIOL7263_Genomics/sequencing_data/ecoli/unmapped_assembly/spades_assembly/contigs.fasta -outfmt 6 \
