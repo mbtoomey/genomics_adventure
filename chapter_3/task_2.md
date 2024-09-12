@@ -37,4 +37,4 @@ Do these look reasonably good? Remember, some reads will fail to map to the refe
 
 Assuming these reads look ok to you, we will proceed with preparing them for de novo assembly!
 
-# Go to [Task 3](https://github.com/guyleonard/genomics_adventure/blob/release/chapter_3/task_2.md)
+# Go to [Task 3](https://github.com/mbtoomey/genomics_adventure/blob/release/chapter_3/task_3.md)
